@@ -1,10 +1,13 @@
+import { AUTO, Game } from 'phaser';
+
 import '../styles/app.scss';
 
-import { Greeter } from './greeter';
-
-const greeter: Greeter = new Greeter('rise');
-
-greeter.start(document.getElementById('app')!);
+const game = new Game({
+    height: 600,
+    parent: 'game',
+    type: AUTO,
+    width: 800,
+});
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
