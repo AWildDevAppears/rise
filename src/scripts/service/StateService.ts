@@ -1,4 +1,4 @@
-import Actor from '../models/Actor';
+import Actor from '../model/Actor';
 
 export default new class {
     public currentLocation: string = '';
