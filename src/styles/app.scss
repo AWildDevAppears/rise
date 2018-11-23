@@ -1,18 +1,18 @@
 @import 'greeter';
 
 body {
-  font: 20px sans-serif;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+    font: 20px sans-serif;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 .notice {
-  font-family: monospace;
-  background-color: #cbcbcb;
-  padding: 1rem;
+    font-family: monospace;
+    background-color: #cbcbcb;
+    padding: 1rem;
 }
 
 img {
-  height: 350px;
+    height: 350px;
 }
