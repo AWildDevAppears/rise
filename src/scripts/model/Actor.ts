@@ -3,7 +3,7 @@
  * Any object in the world that can be created and destroyed by the game
  */
 export default class Actor {
-    public isDesctuctable: boolean = false; // Can this object be broken?
+    public isDesctuctible: boolean = false; // Can this object be broken?
     public isMovable: boolean = false; // Can this object be pushed?
     public isInteractive: boolean = false; // can I trigger it, activate it or open it?
 }
