@@ -15,7 +15,6 @@ export default class Pawn extends Actor {
     public healthMax: number = PAWN_CONSTANTS.baseHealth;
     public healthNow: number = PAWN_CONSTANTS.baseHealth;
 
-
     public moveLeft(isRunning: boolean = false) {
         this.posX -= isRunning ? PAWN_CONSTANTS.runSpeed : PAWN_CONSTANTS.moveSpeed;
     }
