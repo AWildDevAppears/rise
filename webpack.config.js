@@ -16,7 +16,7 @@ module.exports = {
   context: path.join(process.cwd(), 'src'),
 
   output: {
-    publicPath: mode === 'production' ? '/' : 'http://localhost:8080/',
+    publicPath: mode === 'production' ? './' : 'http://localhost:8080/',
     path: path.join(process.cwd(), 'dist'),
     filename: 'scripts/[name].[hash].js',
   },
