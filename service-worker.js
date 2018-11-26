@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.163253897d681a0df885ebcd761bd449.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+importScripts("./precache-manifest.b4459e0053827277184dbe358e9e6a3f.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 function addIndexRevision(urls, defRev) {
     const rando = (Math.random() * 1000000).toPrecision(6);
