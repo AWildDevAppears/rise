@@ -10,7 +10,8 @@
     "check-format": "prettier --list-different \"{__tests__,src}/**/*.{js,ts,scss,html}\"",
     "prebuild": "npm run format",
     "build": "npm run clean && webpack --config ./webpack.config.js",
-    "test": "npm run check-format && karma start --single-run --browsers ChromeHeadless karma.config.js",
+    "test": "npm run check-format && npm run karma",
+    "karma": "karma start --single-run --browsers ChromeHeadless karma.config.js",
     "test-watch": "karma start --browsers ChromeHeadless karma.config.js"
   },
   "license": "ISC",

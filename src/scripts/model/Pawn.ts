@@ -10,6 +10,28 @@ export default class Pawn extends Actor {
 
     public name: string = '';
 
-    public healthMax: number = 0;
-    public healthNow: number = 0;
+    public healthMax: number = PAWN_CONSTANTS.baseHealth;
+    public healthNow: number = PAWN_CONSTANTS.baseHealth;
+
+    public moveLeft(isRunning: boolean = false) {
+        this.posX -= isRunning ? PAWN_CONSTANTS.runSpeed : PAWN_CONSTANTS.moveSpeed;
+    }
+
+    public moveRight(isRunning: boolean = false) {
+        this.posX += isRunning ? PAWN_CONSTANTS.runSpeed : PAWN_CONSTANTS.moveSpeed;
+    }
+
+    public moveUp(isRunning: boolean = false) {
+        this.posY += isRunning ? PAWN_CONSTANTS.runSpeed : PAWN_CONSTANTS.moveSpeed;
+    }
+
+    public moveDown(isRunning: boolean = false) {
+        this.posY -= isRunning ? PAWN_CONSTANTS.runSpeed : PAWN_CONSTANTS.moveSpeed;
+    }
 }
+
+export const PAWN_CONSTANTS = {
+    baseHealth: 100,
+    moveSpeed: 3,
+    runSpeed: 5,
+};
