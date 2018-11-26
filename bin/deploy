@@ -1,0 +1,4 @@
+#!/bin/bash
+
+npm run build
+node $(dirname "$0")/deploy-to-gh.js
