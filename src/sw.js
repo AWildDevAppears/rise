@@ -15,8 +15,6 @@ workbox.core.setCacheNameDetails({
     googleAnalytics: 'ga',
 });
 
-workbox.precaching.precache(['/img/yeoman-033.png']);
-
 workbox.precaching.precache(addIndexRevision(['/', '/manifest.json']));
 
 workbox.skipWaiting();
