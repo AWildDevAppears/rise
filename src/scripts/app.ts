@@ -1,8 +1,10 @@
 import { AUTO, Game } from 'phaser';
 
 import '../styles/app.scss';
+import Actor from './model/Actor';
+import StateService from './service/StateService';
 
-const game = new Game({
+StateService.game = new Game({
     height: 600,
     parent: 'game',
     type: AUTO,
