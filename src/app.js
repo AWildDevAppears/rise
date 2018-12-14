@@ -1,4 +1,7 @@
+import GameManager from './services/GameManager';
+
 /* @flow */
 
-
-console.log('Hello Phaser');
+(() => {
+    GameManager.init();
+})();
