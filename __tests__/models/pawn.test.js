@@ -1,5 +1,4 @@
-import Pawn from '../src/scripts/model/Pawn';
-import { PAWN_CONSTANTS } from '../src/scripts/model/Pawn';
+import Pawn, { PAWN_CONSTANTS } from '../../src/models/Pawn';
 
 describe('Pawn', () => {
     it('Should move left', () => {
