@@ -1,6 +1,13 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
     entry: {
       'rise': ['./src/app.js'],
+    },
+    mode: 'production',
+    output: {
+        path: __dirname + '/dist',
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -12,5 +19,15 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Rise',
+        }),
+    ]
 };

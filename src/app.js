@@ -1,7 +1,5 @@
-import GameManager from './services/GameManager';
-
 /* @flow */
-
-(() => {
+(async () => {
+    const { GameManager } = await import('./services/GameManager');
     GameManager.init();
 })();

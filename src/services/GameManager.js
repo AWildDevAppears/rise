@@ -1,18 +1,22 @@
-import { Game, CANVAS } from 'phaser';
 
-const GameManager = {
-    game: undefined,
+async function main() {
+    const { Game, CANVAS } = await import(/* webpackChunkName: "phaser" */ 'phaser');
 
-    init() {
-        this.game = new Game({
-            width: 1200,
-            height: 800,
-            type: CANVAS,
-            parent: 'game',
-            title: 'Rise',
-            backgroundColor: '#f00', // #TODO: Change me
-        });
-    },
-};
+    return {
+        game: undefined,
 
-export default GameManager;
+        init() {
+            this.game = new Game({
+                width: 1200,
+                height: 800,
+                type: CANVAS,
+                parent: 'game',
+                title: 'Rise',
+                backgroundColor: '#f00', // #TODO: Change me
+            });
+        },
+    };
+
+}
+
+export default main();
