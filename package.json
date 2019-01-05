@@ -8,7 +8,9 @@
     "jest": "./node_modules/.bin/jest",
     "flow": "./node_modules/.bin/flow check",
     "format": "./node_modules/.bin/prettier --write \"{__tests__,src}/**/*.{js,ts,scss,html}\"",
-    "check-format": "./node_modules/.bin/prettier --list-different \"{__tests__,src}/**/*.{js,ts,scss,html}\""
+    "check-format": "./node_modules/.bin/prettier --list-different \"{__tests__,src}/**/*.{js,ts,scss,html}\"",
+    "build": "./node_modules/.bin/webpack",
+    "serve": "./node_modules/.bin/webpack-dev-server"
   },
   "author": "AWildDevAppears",
   "license": "ISC",
@@ -27,7 +29,8 @@
     "phaser": "^3.15.1",
     "prettier": "^1.15.3",
     "webpack": "^4.27.1",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
