@@ -6,6 +6,11 @@ import Armor from "./abstract/Armor";
 
 export interface IEquipment {
     weapon: Weapon;
+    head: Armor;
+    chest: Armor;
+    legs: Armor;
+    boots: Armor;
+    gloves: Armor;
 }
 
 export default class Character extends Entity {
@@ -26,6 +31,11 @@ export default class Character extends Entity {
 
     equipment: IEquipment = {
         weapon: undefined,
+        head: undefined,
+        chest: undefined,
+        legs: undefined,
+        boots: undefined,
+        gloves: undefined,
     }
 
     effectsApplied: Modifier[] = [];

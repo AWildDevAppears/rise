@@ -1,0 +1,41 @@
+{
+    "$id": "armor-schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Armor",
+    "type": "object",
+    "properties": {
+        "armor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "armorType": {
+                        "type": "string",
+                        "enum": [
+                            "head",
+                            "chest",
+                            "legs",
+                            "boots",
+                            "gloves"
+                        ]
+                    },
+                    "defence": {
+                        "type": "number"
+                    },
+                    "modifier": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

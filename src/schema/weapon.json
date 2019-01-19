@@ -1,0 +1,38 @@
+{
+    "id": {
+        "type": "string"
+    },
+    "name": {
+        "type": "string"
+    },
+    "damageMin": {
+        "type": "number"
+    },
+    "damageMax": {
+        "type": "number"
+    },
+    "attackSpeed": {
+        "type": "number"
+    },
+    "range": {
+        "type": "number"
+    },
+    "ammoType": {
+        "type": "string"
+    },
+    "fireRate": {
+        "type": "number"
+    },
+    "burst": {
+        "type": "number"
+    },
+    "reloadSpeed": {
+        "type": "number"
+    },
+    "modifier": {
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    }
+}
