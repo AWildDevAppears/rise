@@ -19,7 +19,7 @@ export default class Entity {
 
     stats = {
         health: -1,
-        endurance: -1,
+        endurance: 0,
     };
 
     constructor(public id: string = '') {}
@@ -27,7 +27,7 @@ export default class Entity {
     takeDamage(damage: number = 0, modifiers: Modifier[] = []) {
         if (this.stats.health === -1) return;
 
-        if (this.stats.endurance === -1) {
+        if (this.stats.endurance === 0) {
             this.stats.health -= damage;
         }
 

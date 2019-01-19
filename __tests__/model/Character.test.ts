@@ -23,6 +23,24 @@ describe('Character damaging other enitities', () => {
     expect(sandbag.stats.health).toBe(90);
 });
 
+describe('Character trying to damage indestructable enitities', () => {
+    const sandbag = new Entity();
+    const character = new Character();
+    const rifle = new RangedWeapon();
+
+    rifle.damageMax = 10;
+    rifle.damageMin = 10;
+
+    character.equip(rifle);
+
+    const damage = character.calculateDamage();
+    sandbag.takeDamage(damage, []);
+
+    expect(damage).toBe(10);
+    expect(sandbag.stats.health).toBe(-1);
+});
+
+
 
 describe('Effects of modifiers on a character', () => {
     it('should increase the characters stats', () => {
