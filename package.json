@@ -1,5 +1,5 @@
 {
-  "name": "edelweiss",
+  "name": "rise",
   "version": "1.0.0",
   "description": "",
   "main": "src/ts/main.ts",
@@ -8,7 +8,9 @@
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/jest": "^23.3.13"
+  },
   "scripts": {
     "test": "jest"
   },
