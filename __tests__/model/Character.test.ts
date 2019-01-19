@@ -4,23 +4,65 @@ import Entity from "../../src/ts/model/abstract/Enitiy";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
 
 describe('Character damaging other enitities', () => {
-    const sandbag = new Entity();
-    const character = new Character();
-    const rifle = new RangedWeapon();
+    it('should allow a character to damage another entity', () => {
+        const sandbag = new Entity();
+        const character = new Character();
+        const rifle = new RangedWeapon();
 
-    rifle.damageMax = 10;
-    rifle.damageMin = 10;
+        rifle.damageMax = 10;
+        rifle.damageMin = 10;
 
-    sandbag.stats.endurance = 1;
-    sandbag.stats.health = 100;
+        sandbag.stats.endurance = 1;
+        sandbag.stats.health = 100;
 
-    character.equip(rifle);
+        character.equip(rifle);
 
-    const damage = character.calculateDamage();
-    sandbag.takeDamage(damage, []);
+        let damage = character.calculateDamage();
+        sandbag.takeDamage(damage, []);
 
-    expect(damage).toBe(10);
-    expect(sandbag.stats.health).toBe(90);
+        expect(damage).toBe(10);
+        expect(sandbag.stats.health).toBe(90);
+    });
+
+    it('should limit the damage based on the entities endurance (5 endurance)', () => {
+        const sandbag = new Entity();
+        const character = new Character();
+        const rifle = new RangedWeapon();
+
+        rifle.damageMax = 10;
+        rifle.damageMin = 10;
+
+        character.equip(rifle);
+
+        sandbag.stats.endurance = 5;
+        sandbag.stats.health = 100;
+
+        const damage = character.calculateDamage();
+        sandbag.takeDamage(damage, []);
+
+        expect(damage).toBe(10);
+        expect(sandbag.stats.health).toBe(91);
+    });
+
+    it('should limit the damage based on the entities endurance (10 endurance)', () => {
+        const sandbag = new Entity();
+        const character = new Character();
+        const rifle = new RangedWeapon();
+
+        rifle.damageMax = 10;
+        rifle.damageMin = 10;
+
+        character.equip(rifle);
+
+        sandbag.stats.endurance = 10;
+        sandbag.stats.health = 100;
+
+        const damage = character.calculateDamage();
+        sandbag.takeDamage(damage, []);
+
+        expect(damage).toBe(10);
+        expect(sandbag.stats.health).toBe(92);
+    });
 });
 
 describe('Character trying to damage indestructable enitities', () => {
