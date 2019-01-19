@@ -1,3 +1,5 @@
+import Modifier from "../Modifier";
+
 export interface IStatistics {
     awareness: number;
     charisma: number;
@@ -22,13 +24,13 @@ export default class Entity {
 
     constructor(public id: string = '') {}
 
-    takeDamage(damage: number = 0) {
+    takeDamage(damage: number = 0, modifiers: Modifier[] = []) {
         if (this.stats.health === -1) return;
 
         if (this.stats.endurance === -1) {
             this.stats.health -= damage;
         }
 
-        this.stats.health -= (damage / (this.stats.endurance / 2))
+        this.stats.health -= (damage / this.stats.endurance)
     }
 }

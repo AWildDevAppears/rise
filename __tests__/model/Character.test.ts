@@ -8,10 +8,19 @@ describe('Character damaging other enitities', () => {
     const character = new Character();
     const rifle = new RangedWeapon();
 
+    rifle.damageMax = 10;
+    rifle.damageMin = 10;
+
     sandbag.stats.endurance = 1;
-    sandbag.stats.health = 10;
+    sandbag.stats.health = 100;
 
     character.equip(rifle);
+
+    const damage = character.calculateDamage();
+    sandbag.takeDamage(damage, []);
+
+    expect(damage).toBe(10);
+    expect(sandbag.stats.health).toBe(90);
 });
 
 

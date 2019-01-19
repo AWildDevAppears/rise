@@ -74,8 +74,16 @@ export default class Character extends Entity {
         }
    }
 
-    calculateDamage() {
+    calculateDamage(): number {
+        if (this.equipment.weapon) {
+            const weapon = this.equipment.weapon;
 
+            return Math.floor(
+                Math.random() * (weapon.damageMax - weapon.damageMin + 1)
+            ) + weapon.damageMin;
+        } else {
+            return 0;
+        }
     }
 
 }
