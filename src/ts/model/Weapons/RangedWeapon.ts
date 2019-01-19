@@ -11,5 +11,7 @@ export default class RangedWeapon extends Weapon {
 
     reloadSpeed: number = 0;
 
-    slots: IWeaponSlots = {};
+    slots: IWeaponSlots = {
+        magasine: undefined,
+    };
 }
