@@ -4,7 +4,7 @@
     "title": "Armor",
     "type": "object",
     "properties": {
-        "armor": {
+        "data": {
             "type": "array",
             "items": {
                 "type": "object",

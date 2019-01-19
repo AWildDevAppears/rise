@@ -1,73 +1,91 @@
 {
-    "id": "string",
-    "name": "string",
+    "$id": "character-schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Character",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
 
-    "stats": {
-        "awareness": {
-            "type": "number",
-            "minimum": 0
-        },
-        "charisma": {
-            "type": "number",
-            "minimum": 0
-        },
-        "dexterity": {
-            "type": "number",
-            "minimum": 0
-        },
-        "endurance": {
-            "type": "number",
-            "minimum": 0
-        },
-        "intelligence": {
-            "type": "number",
-            "minimum": 0
-        },
-        "luck": {
-            "type": "number",
-            "minimum": 0
-        },
-        "strength": {
-            "type": "number",
-            "minimum": 0
-        },
-        "health": {
-            "type": "number",
-            "minimum": 0
-        },
-        "stamina": {
-            "type": "number",
-            "minimum": 0
-        }
-    },
+                    "stats": {
+                        "awareness": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "charisma": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "dexterity": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "endurance": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "intelligence": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "luck": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "strength": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "health": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "stamina": {
+                            "type": "number",
+                            "minimum": 0
+                        }
+                    },
 
-    "equipment": {
-        "type": "object",
-        "parameters": {
-            "weapon": {
-                "type": "string"
-            },
-            "head": {
-                "type": "string"
-            },
-            "chest": {
-                "type": "string"
-            },
-            "legs": {
-                "type": "string"
-            },
-            "boots": {
-                "type": "string"
-            },
-            "gloves": {
-                "type": "string"
+                    "equipment": {
+                        "type": "object",
+                        "parameters": {
+                            "weapon": {
+                                "type": "string"
+                            },
+                            "head": {
+                                "type": "string"
+                            },
+                            "chest": {
+                                "type": "string"
+                            },
+                            "legs": {
+                                "type": "string"
+                            },
+                            "boots": {
+                                "type": "string"
+                            },
+                            "gloves": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "modifier": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
-        }
-    },
-    "modifier": {
-        "type": "array",
-        "items": {
-            "type": "string"
         }
     }
 }
