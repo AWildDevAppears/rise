@@ -1,6 +1,7 @@
 import Modifier from '../Modifier';
 
 export default class Item {
+    name: string = '';
     weight: number = 0;
     durability: number = -1;
 

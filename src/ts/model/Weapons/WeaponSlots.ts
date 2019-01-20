@@ -26,4 +26,6 @@ export class WeaponGrip extends Item {
 
 export class Magasine extends Item {
     capacity: number = 1;
+    ammoType: string = '';
+    ammoLoaded: number = 0;
 }
