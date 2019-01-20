@@ -1,0 +1,34 @@
+{
+    "$id": "chat-schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Chat",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "type": "string"
+                    },
+                    "listener": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "responses": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
