@@ -1,5 +1,5 @@
 import Inventory from "./Inventory";
-import Entity, { IStatistics } from "./abstract/Enitiy";
+import Entity, { IStatistics } from "./abstract/Entity";
 import Modifier from "./Modifier";
 import Weapon from "./abstract/Weapon";
 import Armor from "./abstract/Armor";
