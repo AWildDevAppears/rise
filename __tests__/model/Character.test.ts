@@ -65,6 +65,16 @@ describe('Character damaging other enitities', () => {
     });
 });
 
+describe('Characters wearing armor', () => {
+    it('should allow the user to equip a piece of armor', () => {
+        expect(true).toBe(false);
+    });
+
+    it('should reduce damage taken if the user is wearing armor', () => {
+        expect(true).toBe(false);
+    });
+});
+
 describe('Character trying to damage indestructable enitities', () => {
     const sandbag = new Entity();
     const character = new Character();
