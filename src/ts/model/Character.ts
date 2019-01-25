@@ -13,6 +13,8 @@ export interface IEquipment {
     gloves: Armor;
 }
 
+const DEFENCE_MODIFIER = 0.12;
+
 export default class Character extends Entity {
     name: string = '';
     inventory: Inventory = new Inventory(0);
@@ -70,6 +72,18 @@ export default class Character extends Entity {
         return stats;
     }
 
+    get defence(): number {
+        let defence = 0;
+
+        defence += this.equipment.boots ?: this.equipment.boots.defence : 0;
+        defence += this.equipment.chest ?: this.equipment.chest.defence : 0;
+        defence += this.equipment.gloves ?: this.equipment.gloves.defence : 0;
+        defence += this.equipment.head ?: this.equipment.head.defence : 0;
+        defence += this.equipment.legs ?: this.equipment.legs.defence : 0;
+
+        return defence;
+    }
+
     constructor(id: string = '') {
         super(id);
     }
@@ -88,9 +102,15 @@ export default class Character extends Entity {
         if (this.equipment.weapon) {
             const weapon = this.equipment.weapon;
 
-            return Math.floor(
-                Math.random() * (weapon.damageMax - weapon.damageMin + 1)
-            ) + weapon.damageMin;
+            let armorDefence = 0;
+
+            if (this.defence > 0) {
+                armorDefence = this.defence / DEFENCE_MODIFIER;
+            }
+
+            const weaponDamage = (Math.random() * (weapon.damageMax - weapon.damageMin + 1)) + weapon.damageMin;
+
+            return Math.floor(weaponDamage - armorDefence);
         } else {
             return 0;
         }
