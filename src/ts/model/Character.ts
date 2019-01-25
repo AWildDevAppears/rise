@@ -75,11 +75,11 @@ export default class Character extends Entity {
     get defence(): number {
         let defence = 0;
 
-        defence += this.equipment.boots ?: this.equipment.boots.defence : 0;
-        defence += this.equipment.chest ?: this.equipment.chest.defence : 0;
-        defence += this.equipment.gloves ?: this.equipment.gloves.defence : 0;
-        defence += this.equipment.head ?: this.equipment.head.defence : 0;
-        defence += this.equipment.legs ?: this.equipment.legs.defence : 0;
+        defence += this.equipment.boots ? this.equipment.boots.defence : 0;
+        defence += this.equipment.chest ? this.equipment.chest.defence : 0;
+        defence += this.equipment.gloves ? this.equipment.gloves.defence : 0;
+        defence += this.equipment.head ? this.equipment.head.defence : 0;
+        defence += this.equipment.legs ? this.equipment.legs.defence : 0;
 
         return defence;
     }
