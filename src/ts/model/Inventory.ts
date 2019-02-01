@@ -58,6 +58,28 @@ export default class Inventory {
         return false;
     }
 
+    contains(key: string): boolean {
+        return this.itemList.some(item => {
+            return item.id === key;
+        });
+    }
+
+    count(): number {
+        return this.itemList.length;
+    }
+
+    countOfItem(key: string): number {
+        let count = 0;
+
+        this.itemList.forEach(item => {
+            if (item.id === key) {
+                count++;
+            }
+        });
+
+        return count;
+    }
+
     /**
      * asObject
      * @return {{[key: string]: number}} The inventory as an object of keys to counts of items

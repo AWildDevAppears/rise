@@ -3,6 +3,7 @@ import Entity, { IStatistics } from "./abstract/Entity";
 import Modifier from "./Modifier";
 import Weapon from "./abstract/Weapon";
 import Armor from "./abstract/Armor";
+import RangedWeapon from "./Weapons/RangedWeapon";
 
 export interface IEquipment {
     weapon: Weapon;
@@ -17,7 +18,7 @@ const DEFENCE_MODIFIER = 0.12;
 
 export default class Character extends Entity {
     name: string = '';
-    inventory: Inventory = new Inventory(0);
+    inventory: Inventory = new Inventory(28);
 
     statistics: IStatistics = {
         awareness: 0,
@@ -72,6 +73,15 @@ export default class Character extends Entity {
         return stats;
     }
 
+    get canAttack(): boolean {
+        if (!this.equipment.weapon) {
+            // Use fists to attack
+            return true;
+        }
+
+        return this.equipment.weapon.canAttack;
+    }
+
     get defence(): number {
         let defence = 0;
 
@@ -116,4 +126,28 @@ export default class Character extends Entity {
         }
     }
 
+    reload() {
+        if (this.equipment.weapon instanceof RangedWeapon) {
+            const ammoType = this.equipment.weapon.ammoType
+            if (this.inventory.contains(ammoType)) {
+                const count = this.inventory.countOfItem(ammoType);
+                const maxAmmoCount = this.equipment.weapon.slots.magasine.capacity;
+
+                let ammoToLoad = 0;
+                if (count === 0) {
+                    return;
+                }
+
+                ammoToLoad = count > maxAmmoCount ? maxAmmoCount : count;
+
+                for (let i = 0; i < ammoToLoad; i++) {
+                    this.inventory.removeItem(ammoType);
+                }
+
+                (this.equipment.weapon as RangedWeapon).reload(ammoToLoad);
+            }
+
+            return;
+        }
+    }
 }

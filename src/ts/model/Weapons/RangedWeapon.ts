@@ -12,6 +12,25 @@ export default class RangedWeapon extends Weapon {
     reloadSpeed: number = 0;
 
     slots: IWeaponSlots = {
-        magasine: undefined,
     };
+
+    get canAttack(): boolean {
+        if (this.slots.magasine === undefined) {
+            return false;
+        }
+
+        if (this.slots.magasine.ammoLoaded === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    reload(ammo: number) {
+        if (ammo > this.slots.magasine.capacity) {
+            this.slots.magasine.ammoLoaded = this.slots.magasine.capacity;
+            return;
+        }
+        this.slots.magasine.ammoLoaded = ammo;
+    }
 }

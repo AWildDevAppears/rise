@@ -5,26 +5,31 @@ export default interface IWeaponSlots {
     body?: WeaponBody;
     stock?: WeaponStock;
     grip?: WeaponGrip;
-    magasine: Magasine;
+    magasine?: Magasine;
 };
 
-export class WeaponMuzzle extends Item {
+export class WeaponComponent extends Item {
+    bindTo: string = '';
+}
+
+export class WeaponMuzzle extends WeaponComponent {
 
 }
 
-export class WeaponBody extends Item {
+export class WeaponBody extends WeaponComponent {
 
 }
 
-export class WeaponStock extends Item {
+export class WeaponStock extends WeaponComponent {
 
 }
 
-export class WeaponGrip extends Item {
+export class WeaponGrip extends WeaponComponent {
 
 }
 
-export class Magasine extends Item {
+export class Magasine extends WeaponComponent {
+    bindTo = 'magasine';
     capacity: number = 1;
     ammoType: string = '';
     ammoLoaded: number = 0;
