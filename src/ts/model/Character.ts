@@ -79,7 +79,7 @@ export default class Character extends Entity {
             return true;
         }
 
-        return this.equipment.weapon.canAttack;
+        return this.equipment.weapon.canAttack();
     }
 
     get defence(): number {
@@ -96,6 +96,18 @@ export default class Character extends Entity {
 
     constructor(id: string = '') {
         super(id);
+    }
+
+    attack(): number {
+        if (!this.canAttack) {
+            return 0;
+        }
+
+        if (this.equipment.weapon) {
+            this.equipment.weapon.use();
+        }
+
+        return this.calculateDamage();
     }
 
     equip(item: (Weapon | Armor)) {
@@ -132,13 +144,18 @@ export default class Character extends Entity {
             if (this.inventory.contains(ammoType)) {
                 const count = this.inventory.countOfItem(ammoType);
                 const maxAmmoCount = this.equipment.weapon.slots.magasine.capacity;
+                const ammoLoaded = this.equipment.weapon.slots.magasine.ammoLoaded;
 
                 let ammoToLoad = 0;
                 if (count === 0) {
                     return;
                 }
 
-                ammoToLoad = count > maxAmmoCount ? maxAmmoCount : count;
+                ammoToLoad = (count > maxAmmoCount ? maxAmmoCount : count) ;
+
+                if (ammoToLoad + ammoLoaded > maxAmmoCount) {
+                    ammoToLoad = maxAmmoCount - ammoLoaded;
+                }
 
                 for (let i = 0; i < ammoToLoad; i++) {
                     this.inventory.removeItem(ammoType);

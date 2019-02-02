@@ -20,8 +20,8 @@ export default class Weapon extends Item {
     slots: IWeaponSlots = {};
 
 
-    get canAttack(): boolean {
-        return false;
+    canAttack(): boolean {
+        return this.stats.health !== 0;
     }
 
     attach(component: WeaponComponent): boolean {
