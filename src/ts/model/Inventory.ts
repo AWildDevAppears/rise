@@ -88,7 +88,7 @@ export default class Inventory {
         var items: {[key: string]: number} = {};
 
         this.itemList.forEach((item: Item) => {
-            var id = item.durability > -1 ? `${item.id}:${item.durability}` : item.id
+            var id = item.stats.health > -1 ? `${item.id}:${item.stats.health}` : item.id
 
             if (items[id]) {
                 items[id]++

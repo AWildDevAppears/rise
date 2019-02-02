@@ -51,7 +51,7 @@ describe('Using items', () => {
     it('should let me use an item that can be used', () => {
         const inv = new Inventory(1);
         const item = new Item('this-is-id');
-        item.durability = 10;
+        item.stats.health = 10;
         item.effects = [
             new Modifier('modifier-id'),
         ];
@@ -66,7 +66,7 @@ describe('Using items', () => {
     it('should remove an item if it\'s used up', () => {
         const inv = new Inventory(1);
         const item = new Item('this-is-id');
-        item.durability = 1;
+        item.stats.health = 1;
         item.effects = [
             new Modifier('modifier-id'),
         ];
