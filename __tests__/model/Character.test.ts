@@ -1,6 +1,6 @@
 import Modifier from "../../src/ts/model/Modifier";
 import Character from "../../src/ts/model/Character";
-import Entity from "../../src/ts/model/abstract/Enitiy";
+import Entity from "../../src/ts/model/abstract/Entity";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
 import { Magasine } from "../../src/ts/model/Weapons/WeaponSlots";
 import Item from "../../src/ts/model/abstract/Item";
