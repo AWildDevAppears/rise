@@ -3,10 +3,16 @@ import Modifier from "../Modifier";
 import IWeaponSlots, { WeaponComponent } from "../Weapons/WeaponSlots";
 
 const WEAPON_SLOTS = {
-    'rifle': ['magasine', 'stock', 'muzzle', 'body'],
-    'ar': ['magasine', 'stock', 'muzzle', 'body', 'grip'],
+    '_': ['muzzle', 'barrel', 'body', 'stock', 'grip', 'sights', 'magasine'],
+    'rifle': ['muzzle', 'barrel', 'body', 'stock', 'sights', 'magasine'],
+    'ar': ['muzzle', 'barrel', 'body', 'stock', 'sights', 'magasine'],
+    'pistol': ['muzzle', 'body', 'grip', 'sights', 'magasine'],
+    'revolver': ['body', 'grip', 'sights', 'magasine'],
+    'shotgun': ['barrel', 'body', 'stock', 'magasine'],
+    'lmg': ['barrel', 'body', 'stock', 'sights', 'magasine'],
+    'smg': ['muzzle', 'body', 'stock', 'grip', 'sights', 'magasine'],
+    'bow': ['barrel', 'body', 'grip', 'sights', 'magasine'],
 }
-
 
 export default class Weapon extends Item {
     damageMin: number = 0;
@@ -18,7 +24,6 @@ export default class Weapon extends Item {
     modifiers: Modifier[] = [];
 
     slots: IWeaponSlots = {};
-
 
     canAttack(): boolean {
         return this.stats.health !== 0;
