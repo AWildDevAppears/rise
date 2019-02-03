@@ -1,4 +1,4 @@
-import Entity from "./abstract/Enitiy";
+import Entity from "./abstract/Entity";
 import Inventory from "./Inventory";
 
 export default class Container extends Entity {
