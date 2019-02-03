@@ -14,6 +14,12 @@ export default class RangedWeapon extends Weapon {
     slots: IWeaponSlots = {
     };
 
+    stats = {
+        health: -1,
+        endurance: 0,
+        accuracy: 0,
+    }
+
     canAttack(): boolean {
         if (!super.canAttack()) {
             return false;
