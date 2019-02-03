@@ -4,6 +4,7 @@ import Entity from './Entity';
 export default class Item extends Entity {
     name: string = '';
     weight: number = 0;
+    value: number = 0;
 
     effects: Modifier[] = [];
 
