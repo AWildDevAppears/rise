@@ -19,6 +19,8 @@ export default class Entity {
     y: number = 0;
     z: number = 0;
 
+    isSolid: boolean = false;
+
     stats = {
         health: -1,
         endurance: 0,
@@ -38,4 +40,6 @@ export default class Entity {
 
         this.stats.health -= Math.floor(damage - defence);
     }
+
+    interact() {}
 }

@@ -1,13 +1,14 @@
 import Modifier from '../Modifier';
+import Entity from './Entity';
 
-export default class Item {
+export default class Item extends Entity {
     name: string = '';
     weight: number = 0;
-    durability: number = -1;
 
     effects: Modifier[] = [];
 
     constructor(public id: string = '') {
+        super(id);
         this.weight = 1;
     }
 
@@ -16,11 +17,11 @@ export default class Item {
      * @return {boolean} whether this item has been consumed or not
      */
     use(): boolean {
-        if (this.durability > 0) {
-            this.durability--;
+        if (this.stats.health > 0) {
+            this.stats.health--;
         }
 
-        if (this.durability === 0) return true;
+        if (this.stats.health === 0) return true;
 
         return false;
     }

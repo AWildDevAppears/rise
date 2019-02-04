@@ -14,7 +14,11 @@ export default class RangedWeapon extends Weapon {
     slots: IWeaponSlots = {
     };
 
-    get canAttack(): boolean {
+    canAttack(): boolean {
+        if (!super.canAttack()) {
+            return false;
+        }
+
         if (this.slots.magasine === undefined) {
             return false;
         }
@@ -27,10 +31,19 @@ export default class RangedWeapon extends Weapon {
     }
 
     reload(ammo: number) {
-        if (ammo > this.slots.magasine.capacity) {
+        if ((this.slots.magasine.ammoLoaded + ammo) > this.slots.magasine.capacity) {
             this.slots.magasine.ammoLoaded = this.slots.magasine.capacity;
             return;
         }
-        this.slots.magasine.ammoLoaded = ammo;
+        this.slots.magasine.ammoLoaded += ammo;
+    }
+
+    use() {
+        // If we can't fire don't do anything
+        if (!this.canAttack) return false;
+        // Check if the weapon is broken and knock down its durability
+        if (!super.use()) return false;
+        // Remove one bullet from the clip
+        this.slots.magasine.ammoLoaded--;
     }
 }

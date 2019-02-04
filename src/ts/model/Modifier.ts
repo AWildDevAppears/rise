@@ -1,4 +1,4 @@
-import { IStatistics } from "./abstract/Enitiy";
+import { IStatistics } from "./abstract/Entity";
 
 export default class Modifier implements IStatistics {
     // number of ticks (seconds, turns, etc) the modifier will last

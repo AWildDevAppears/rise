@@ -1,6 +1,6 @@
 import Modifier from "../../src/ts/model/Modifier";
 import Character from "../../src/ts/model/Character";
-import Entity from "../../src/ts/model/abstract/Enitiy";
+import Entity from "../../src/ts/model/abstract/Entity";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
 import { Magasine } from "../../src/ts/model/Weapons/WeaponSlots";
 import Item from "../../src/ts/model/abstract/Item";
@@ -47,6 +47,54 @@ describe('Character damaging other enitities', () => {
         expect(character.equipment.weapon.slots.magasine.ammoLoaded).toBe(6);
 
         expect(character.canAttack).toBe(true);
+
+        // Add 8 more bullets
+        for (let i = 0; i < 8; i++) {
+            character.inventory.addItem(ammo);
+        }
+
+        expect(character.inventory.count()).toBe(8);
+
+        character.reload();
+
+        // We had 8 bulltets in our inventory and 6 in the rifles magazine, therefore we should only load 6
+        // more bullets in order to fill the clip, leaving us 2 extra bullets in our inventory.
+        expect(character.inventory.count()).toBe(2);
+
+        expect(character.equipment.weapon.slots.magasine.ammoLoaded).toBe(12);
+    });
+
+    it('should let a character fire a gun', () => {
+        const character = new Character();
+        const rifle = new RangedWeapon();
+        const rifleMag = new Magasine();
+        const ammo = new Item();
+
+        ammo.id = '5.56';
+
+        rifleMag.capacity = 12;
+        rifleMag.ammoLoaded = 0;
+        rifleMag.ammoType = '5.56';
+        rifle.weaponType = 'rifle';
+        rifle.ammoType = '5.56';
+        rifle.damageMax = 10;
+        rifle.damageMin = 10;
+        rifle.stats.health = 1;
+
+        rifle.attach(rifleMag);
+        character.equip(rifle);
+
+        for (let i = 0; i < 2; i++) {
+            character.inventory.addItem(ammo);
+        }
+
+        character.reload();
+
+        character.attack();
+
+        expect(character.equipment.weapon.stats.health).toBe(0);
+        expect(character.attack()).toBe(0);
+        expect(character.canAttack).toBe(false);
     });
 
     it('should allow a character to damage another entity', () => {
