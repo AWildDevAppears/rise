@@ -37,4 +37,14 @@ export default class Weapon extends Item {
 
         return false;
     }
+
+    remove(slot: string): false|WeaponComponent {
+        if (!this.slots[slot]) return false;
+        if (this.slots[slot].fixed) return false;
+
+        const component = this.slots[slot];
+        this.slots[slot] = undefined;
+
+        return component;
+    }
 }

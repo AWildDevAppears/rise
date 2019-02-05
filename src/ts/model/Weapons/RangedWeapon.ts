@@ -2,14 +2,7 @@ import Weapon from "../abstract/Weapon";
 import IWeaponSlots from "./WeaponSlots";
 
 export default class RangedWeapon extends Weapon {
-    range: number = 0;
-
     ammoType: string = '';
-    fireRate: number = 0;
-
-    burst: number = 1;
-
-    reloadSpeed: number = 0;
 
     slots: IWeaponSlots = {
     };
@@ -18,6 +11,14 @@ export default class RangedWeapon extends Weapon {
         health: -1,
         endurance: 0,
         accuracy: 0,
+        fireRate: 0,
+        burst: 1,
+        reloadSpeed: 0,
+        range: 0,
+    }
+
+    get calculatedStats() {
+        return this.stats;
     }
 
     canAttack(): boolean {
