@@ -17,10 +17,6 @@ export default class RangedWeapon extends Weapon {
         range: 0,
     }
 
-    get calculatedStats() {
-        return this.stats;
-    }
-
     canAttack(): boolean {
         if (!super.canAttack()) {
             return false;
@@ -45,12 +41,14 @@ export default class RangedWeapon extends Weapon {
         this.slots.magasine.ammoLoaded += ammo;
     }
 
-    use() {
+    use(): boolean {
         // If we can't fire don't do anything
-        if (!this.canAttack) return false;
+        if (!this.canAttack()) return false;
+
         // Check if the weapon is broken and knock down its durability
         if (!super.use()) return false;
         // Remove one bullet from the clip
-        this.slots.magasine.ammoLoaded--;
+        this.slots.magasine.ammoLoaded -= this.stats.burst > 0 ? this.stats.burst : 1;
+        return true;
     }
 }

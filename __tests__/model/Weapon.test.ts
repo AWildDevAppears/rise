@@ -1,5 +1,6 @@
-import { Magasine, WeaponSights } from "../../src/ts/model/Weapons/WeaponSlots";
+import { Magasine, WeaponSights, WeaponGrip } from "../../src/ts/model/Weapons/WeaponSlots";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
+import Item from "../../src/ts/model/abstract/Item";
 
 describe('Wepon tests', () => {
     it('should not let me remove fixed items from weapons (e.g a bows magasine)', () => {
@@ -42,18 +43,33 @@ describe('Wepon tests', () => {
     });
 
     it('should not let me slot a component to a weapon which doesn\'t have a slot for it', () => {
-        expect(true).toBe(false);
-    });
+        const rifle = new RangedWeapon();
+        const rifleGrip = new WeaponGrip();
 
-    it('should only let me slot a component to a weapon that works for this type of weapon, even if it has a slot for it', () => {
-        expect(true).toBe(false);
-    });
+        rifle.weaponType = 'rifle';
+        rifle.ammoType = '5.56';
 
-    it('should unequip a component if I try to replace it', () => {
-        expect(true).toBe(false);
+        expect(rifle.attach(rifleGrip)).toBe(false);
     });
 
     it('should consume more bullets from a burst fire weapon, and increase damage accordingly', () => {
-        expect(true).toBe(false);
+        const rifle = new RangedWeapon();
+        const rifleMag = new Magasine();
+
+        rifle.weaponType = 'rifle';
+        rifle.stats.burst = 3;
+
+        rifleMag.capacity = 12;
+        rifleMag.ammoLoaded = 12;
+        rifleMag.ammoType = '5.56';
+        rifleMag.fixed = true;
+
+        rifle.attach(rifleMag);
+
+        expect(rifle.slots.magasine.ammoLoaded).toBe(12);
+
+        expect(rifle.use()).toBe(true);
+
+        expect(rifle.slots.magasine.ammoLoaded).toBe(9);
     });
 });

@@ -14,6 +14,12 @@ const WEAPON_SLOTS = {
     'bow': ['barrel', 'body', 'grip', 'sights', 'magasine'],
 }
 
+interface IWeaponStats {
+    health: number;
+    endurance: number;
+    accuracy?: number;
+}
+
 export default class Weapon extends Item {
     damageMin: number = 0;
     damageMax: number = 0;
@@ -24,6 +30,25 @@ export default class Weapon extends Item {
     modifiers: Modifier[] = [];
 
     slots: IWeaponSlots = {};
+
+    stats: IWeaponStats = {
+        health: -1,
+        endurance: 0,
+    }
+
+    get calculatedStats() {
+        const stats = { ...this.stats };
+
+        for (let component in this.slots) {
+            for (let key in this.slots[component]) {
+                if (this.stats[key]) {
+                    stats[key] += this.slots[component][key];
+                }
+            }
+        }
+
+        return stats;
+    }
 
     canAttack(): boolean {
         return this.stats.health !== 0;
