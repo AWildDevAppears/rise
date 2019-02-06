@@ -2,7 +2,7 @@ import Modifier from "../../src/ts/model/Modifier";
 import Character from "../../src/ts/model/Character";
 import Entity from "../../src/ts/model/abstract/Entity";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
-import { Magasine } from "../../src/ts/model/Weapons/WeaponSlots";
+import { Magasine, WeaponSights } from "../../src/ts/model/Weapons/WeaponSlots";
 import Item from "../../src/ts/model/abstract/Item";
 
 describe('Character damaging other enitities', () => {
@@ -95,6 +95,24 @@ describe('Character damaging other enitities', () => {
         expect(character.equipment.weapon.stats.health).toBe(0);
         expect(character.attack()).toBe(0);
         expect(character.canAttack).toBe(false);
+    });
+
+    it('should unequip a component if I try to replace it', () => {
+        const character = new Character();
+        const rifle = new RangedWeapon();
+        const rifleScope = new WeaponSights('scope');
+        const rifleScopeBetter = new WeaponSights('scopeBetter');
+
+        rifle.weaponType = 'rifle';
+        rifle.ammoType = '5.56';
+
+        character.equip(rifle);
+
+        expect(character.attachComponentToWeapon(rifleScope));
+        expect(character.attachComponentToWeapon(rifleScopeBetter));
+
+        expect(character.inventory.contains(rifleScope.id)).toBe(true);
+        expect(character.inventory.count()).toBe(1);
     });
 
     it('should allow a character to damage another entity', () => {

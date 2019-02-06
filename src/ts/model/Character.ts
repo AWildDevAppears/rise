@@ -4,6 +4,7 @@ import Modifier from "./Modifier";
 import Weapon from "./abstract/Weapon";
 import Armor from "./abstract/Armor";
 import RangedWeapon from "./Weapons/RangedWeapon";
+import { WeaponComponent } from "./Weapons/WeaponSlots";
 
 export interface IEquipment {
     weapon: Weapon;
@@ -136,6 +137,22 @@ export default class Character extends Entity {
         } else {
             return 0;
         }
+    }
+
+    attachComponentToWeapon(component: WeaponComponent): boolean {
+        let oldItem: WeaponComponent;
+        if (this.equipment.weapon.slots[component.bindTo]) {
+            oldItem = this.equipment.weapon.slots[component.bindTo];
+        }
+
+        if (this.equipment.weapon.attach(component)) {
+            if (oldItem) {
+                this.inventory.addItem(oldItem);
+            }
+            return true;
+        }
+
+        return false;
     }
 
     reload() {
