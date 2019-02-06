@@ -122,7 +122,7 @@ export default class Inventory {
         const item = this.itemList[i];
 
         // If the item is depleted, remove it
-        if (item.use()) {
+        if (!item.use()) {
             this.removeItemAtPos(i);
         }
 

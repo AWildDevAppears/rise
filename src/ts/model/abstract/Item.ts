@@ -22,8 +22,8 @@ export default class Item extends Entity {
             this.stats.health--;
         }
 
-        if (this.stats.health === 0) return true;
+        if (this.stats.health === 0) return false;
 
-        return false;
+        return true;
     }
 }
