@@ -59,6 +59,9 @@ describe('Wepon tests', () => {
         rifle.weaponType = 'rifle';
         rifle.stats.burst = 3;
 
+        rifle.damageMax = 10;
+        rifle.damageMin = 10;
+
         rifleMag.capacity = 12;
         rifleMag.ammoLoaded = 12;
         rifleMag.ammoType = '5.56';
@@ -66,10 +69,14 @@ describe('Wepon tests', () => {
 
         rifle.attach(rifleMag);
 
+        expect(rifle.calculateDamage()).toBe(30);
+
         expect(rifle.slots.magasine.ammoLoaded).toBe(12);
 
         expect(rifle.use()).toBe(true);
 
         expect(rifle.slots.magasine.ammoLoaded).toBe(9);
+
+
     });
 });

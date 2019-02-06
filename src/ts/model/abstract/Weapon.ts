@@ -18,6 +18,7 @@ interface IWeaponStats {
     health: number;
     endurance: number;
     accuracy?: number;
+    burst?: number;
 }
 
 export default class Weapon extends Item {
@@ -34,6 +35,7 @@ export default class Weapon extends Item {
     stats: IWeaponStats = {
         health: -1,
         endurance: 0,
+        burst: 1
     }
 
     get calculatedStats() {
@@ -48,6 +50,12 @@ export default class Weapon extends Item {
         }
 
         return stats;
+    }
+
+   calculateDamage() {
+        return (
+            Math.floor((Math.random() * (this.damageMax - this.damageMin + 1)) + this.damageMin
+        )) * (this.stats.burst > 0 ? this.stats.burst : 1);
     }
 
     canAttack(): boolean {

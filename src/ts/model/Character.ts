@@ -131,7 +131,7 @@ export default class Character extends Entity {
                 armorDefence = this.defence / DEFENCE_MODIFIER;
             }
 
-            const weaponDamage = (Math.random() * (weapon.damageMax - weapon.damageMin + 1)) + weapon.damageMin;
+            const weaponDamage = weapon.calculateDamage();
 
             return Math.floor(weaponDamage - armorDefence);
         } else {
