@@ -4,6 +4,7 @@ import Entity from "../../src/ts/model/abstract/Entity";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
 import { Magasine, WeaponSights } from "../../src/ts/model/Weapons/WeaponSlots";
 import Item from "../../src/ts/model/abstract/Item";
+import Armor from "../../src/ts/model/abstract/Armor";
 
 describe('Character damaging other enitities', () => {
     it('should only allow a character to attack with a ranged weapon when it is loaded', () => {
@@ -176,15 +177,20 @@ describe('Character damaging other enitities', () => {
     });
 });
 
-// describe('Characters wearing armor', () => {
-//     it('should allow the user to equip a piece of armor', () => {
-//         expect(true).toBe(false);
-//     });
+describe('Characters wearing armor', () => {
+    it('should allow the user to equip a piece of armor', () => {
+        const character = new Character();
+        const chestpiece = new Armor();
+        chestpiece.armorType = 'chest';
 
-//     it('should reduce damage taken if the user is wearing armor', () => {
-//         expect(true).toBe(false);
-//     });
-// });
+        expect(character.equip(chestpiece)).toBe(true);
+
+    });
+
+    it('should reduce damage taken if the user is wearing armor', () => {
+        expect(true).toBe(false);
+    });
+ });
 
 describe('Character trying to damage indestructable enitities', () => {
     it('should negate damage if youv are attacking an indestuctable entity', () => {
