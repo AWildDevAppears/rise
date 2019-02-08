@@ -1,6 +1,5 @@
 import { Magasine, WeaponSights, WeaponGrip } from "../../src/ts/model/Weapons/WeaponSlots";
 import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
-import Item from "../../src/ts/model/abstract/Item";
 
 describe('Wepon tests', () => {
     it('should not let me remove fixed items from weapons (e.g a bows magasine)', () => {
