@@ -1,11 +1,10 @@
-import Weapon from "../abstract/Weapon";
-import IWeaponSlots from "./WeaponSlots";
+import Weapon from '../abstract/Weapon';
+import IWeaponSlots from './WeaponSlots';
 
 export default class RangedWeapon extends Weapon {
     ammoType: string = '';
 
-    slots: IWeaponSlots = {
-    };
+    slots: IWeaponSlots = {};
 
     stats = {
         health: -1,
@@ -15,7 +14,7 @@ export default class RangedWeapon extends Weapon {
         burst: 1,
         reloadSpeed: 0,
         range: 0,
-    }
+    };
 
     canAttack(): boolean {
         if (!super.canAttack()) {
@@ -34,7 +33,7 @@ export default class RangedWeapon extends Weapon {
     }
 
     reload(ammo: number) {
-        if ((this.slots.magasine.ammoLoaded + ammo) > this.slots.magasine.capacity) {
+        if (this.slots.magasine.ammoLoaded + ammo > this.slots.magasine.capacity) {
             this.slots.magasine.ammoLoaded = this.slots.magasine.capacity;
             return;
         }

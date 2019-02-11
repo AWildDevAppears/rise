@@ -1,18 +1,18 @@
-import Item from "./Item";
-import Modifier from "../Modifier";
-import IWeaponSlots, { WeaponComponent } from "../Weapons/WeaponSlots";
+import Item from './Item';
+import Modifier from '../Modifier';
+import IWeaponSlots, { WeaponComponent } from '../Weapons/WeaponSlots';
 
 const WEAPON_SLOTS = {
-    '_': ['muzzle', 'barrel', 'body', 'stock', 'grip', 'sights', 'magasine'],
-    'rifle': ['muzzle', 'barrel', 'body', 'stock', 'sights', 'magasine'],
-    'ar': ['muzzle', 'barrel', 'body', 'stock', 'sights', 'magasine'],
-    'pistol': ['muzzle', 'body', 'grip', 'sights', 'magasine'],
-    'revolver': ['body', 'grip', 'sights', 'magasine'],
-    'shotgun': ['barrel', 'body', 'stock', 'magasine'],
-    'lmg': ['barrel', 'body', 'stock', 'sights', 'magasine'],
-    'smg': ['muzzle', 'body', 'stock', 'grip', 'sights', 'magasine'],
-    'bow': ['barrel', 'body', 'grip', 'sights', 'magasine'],
-}
+    _: ['muzzle', 'barrel', 'body', 'stock', 'grip', 'sights', 'magasine'],
+    rifle: ['muzzle', 'barrel', 'body', 'stock', 'sights', 'magasine'],
+    ar: ['muzzle', 'barrel', 'body', 'stock', 'sights', 'magasine'],
+    pistol: ['muzzle', 'body', 'grip', 'sights', 'magasine'],
+    revolver: ['body', 'grip', 'sights', 'magasine'],
+    shotgun: ['barrel', 'body', 'stock', 'magasine'],
+    lmg: ['barrel', 'body', 'stock', 'sights', 'magasine'],
+    smg: ['muzzle', 'body', 'stock', 'grip', 'sights', 'magasine'],
+    bow: ['barrel', 'body', 'grip', 'sights', 'magasine'],
+};
 
 interface IWeaponStats {
     health: number;
@@ -35,8 +35,8 @@ export default class Weapon extends Item {
     stats: IWeaponStats = {
         health: -1,
         endurance: 0,
-        burst: 1
-    }
+        burst: 1,
+    };
 
     get calculatedStats() {
         const stats = { ...this.stats };
@@ -52,10 +52,11 @@ export default class Weapon extends Item {
         return stats;
     }
 
-   calculateDamage() {
+    calculateDamage() {
         return (
-            Math.floor((Math.random() * (this.damageMax - this.damageMin + 1)) + this.damageMin
-        )) * (this.stats.burst > 0 ? this.stats.burst : 1);
+            Math.floor(Math.random() * (this.damageMax - this.damageMin + 1) + this.damageMin) *
+            (this.stats.burst > 0 ? this.stats.burst : 1)
+        );
     }
 
     canAttack(): boolean {
@@ -71,7 +72,7 @@ export default class Weapon extends Item {
         return false;
     }
 
-    remove(slot: string): false|WeaponComponent {
+    remove(slot: string): false | WeaponComponent {
         if (!this.slots[slot]) return false;
         if (this.slots[slot].fixed) return false;
 

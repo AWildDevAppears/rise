@@ -44,7 +44,7 @@ export default class Inventory {
         return removed;
     }
 
-        /**
+    /**
      * removeItem
      * @param {number} pos - index of the item we want to remove
      * @return {boolean} whether the process was completely successfull or not
@@ -84,14 +84,14 @@ export default class Inventory {
      * asObject
      * @return {{[key: string]: number}} The inventory as an object of keys to counts of items
      */
-    asObject(): {[key: string]: number} {
-        var items: {[key: string]: number} = {};
+    asObject(): { [key: string]: number } {
+        var items: { [key: string]: number } = {};
 
         this.itemList.forEach((item: Item) => {
-            var id = item.stats.health > -1 ? `${item.id}:${item.stats.health}` : item.id
+            var id = item.stats.health > -1 ? `${item.id}:${item.stats.health}` : item.id;
 
             if (items[id]) {
-                items[id]++
+                items[id]++;
                 return;
             }
 
@@ -107,7 +107,7 @@ export default class Inventory {
      * @return {Modifier[]} modifiers that said item applies
      */
     useItem(id: string): Modifier[] {
-         var i = -1;
+        var i = -1;
         this.itemList.some((item: Item, pos: number) => {
             if (item.id == id) {
                 i = pos;

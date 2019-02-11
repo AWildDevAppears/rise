@@ -1,4 +1,4 @@
-import Modifier from "../Modifier";
+import Modifier from '../Modifier';
 
 const ENDURANCE_MODIFIER = 0.2;
 

@@ -1,4 +1,4 @@
-import Item from "../abstract/Item";
+import Item from '../abstract/Item';
 
 export default interface IWeaponSlots {
     muzzle?: WeaponMuzzle;
@@ -8,7 +8,7 @@ export default interface IWeaponSlots {
     magasine?: Magasine;
     sights?: WeaponSights;
     barrel?: WeaponBarrel;
-};
+}
 
 export class WeaponComponent extends Item {
     bindTo: string = '';

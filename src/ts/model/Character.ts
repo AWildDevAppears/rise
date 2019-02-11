@@ -1,10 +1,10 @@
-import Inventory from "./Inventory";
-import Entity, { IStatistics } from "./abstract/Entity";
-import Modifier from "./Modifier";
-import Weapon from "./abstract/Weapon";
-import Armor from "./abstract/Armor";
-import RangedWeapon from "./Weapons/RangedWeapon";
-import { WeaponComponent } from "./Weapons/WeaponSlots";
+import Inventory from './Inventory';
+import Entity, { IStatistics } from './abstract/Entity';
+import Modifier from './Modifier';
+import Weapon from './abstract/Weapon';
+import Armor from './abstract/Armor';
+import RangedWeapon from './Weapons/RangedWeapon';
+import { WeaponComponent } from './Weapons/WeaponSlots';
 
 export interface IEquipment {
     weapon: Weapon;
@@ -40,14 +40,14 @@ export default class Character extends Entity {
         legs: undefined,
         boots: undefined,
         gloves: undefined,
-    }
+    };
 
     effectsApplied: Modifier[] = [];
 
     get calculatedStats(): IStatistics {
         const stats = this.statistics;
 
-        this.effectsApplied.forEach((effect) => {
+        this.effectsApplied.forEach(effect => {
             if (effect.ticks === 0) return;
 
             stats.awareness += effect.awareness;
@@ -111,15 +111,33 @@ export default class Character extends Entity {
         return this.calculateDamage();
     }
 
-    equip(item: (Weapon | Armor)) {
+    equip(item: Weapon | Armor) {
         if (item instanceof Weapon) {
             if (this.equipment.weapon) {
-                this.inventory.addItem(this.equipment.weapon);
+                if (!this.inventory.addItem(this.equipment.weapon)) {
+                    return false;
+                }
             }
 
             this.equipment.weapon = item;
+            return true;
         }
-   }
+
+        if (!(item as Armor).armorType) {
+            return false;
+        }
+
+        item = item as Armor;
+
+        if (this.equipment[item.armorType]) {
+            if (!this.inventory.addItem(this.equipment[item.armorType])) {
+                return false;
+            }
+        }
+
+        this.equipment[item.armorType] = item;
+        return true;
+    }
 
     calculateDamage(): number {
         if (this.equipment.weapon) {
@@ -157,7 +175,7 @@ export default class Character extends Entity {
 
     reload() {
         if (this.equipment.weapon instanceof RangedWeapon) {
-            const ammoType = this.equipment.weapon.ammoType
+            const ammoType = this.equipment.weapon.ammoType;
             if (this.inventory.contains(ammoType)) {
                 const count = this.inventory.countOfItem(ammoType);
                 const maxAmmoCount = this.equipment.weapon.slots.magasine.capacity;
@@ -168,7 +186,7 @@ export default class Character extends Entity {
                     return;
                 }
 
-                ammoToLoad = (count > maxAmmoCount ? maxAmmoCount : count) ;
+                ammoToLoad = count > maxAmmoCount ? maxAmmoCount : count;
 
                 if (ammoToLoad + ammoLoaded > maxAmmoCount) {
                     ammoToLoad = maxAmmoCount - ammoLoaded;
