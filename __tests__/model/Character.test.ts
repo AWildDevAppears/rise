@@ -1,10 +1,10 @@
-import Modifier from "../../src/ts/model/Modifier";
-import Character from "../../src/ts/model/Character";
-import Entity from "../../src/ts/model/abstract/Entity";
-import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
-import { Magasine, WeaponSights } from "../../src/ts/model/Weapons/WeaponSlots";
-import Item from "../../src/ts/model/abstract/Item";
-import Armor from "../../src/ts/model/abstract/Armor";
+import Modifier from '../../src/ts/model/Modifier';
+import Character from '../../src/ts/model/Character';
+import Entity from '../../src/ts/model/abstract/Entity';
+import RangedWeapon from '../../src/ts/model/Weapons/RangedWeapon';
+import { Magasine, WeaponSights } from '../../src/ts/model/Weapons/WeaponSlots';
+import Item from '../../src/ts/model/abstract/Item';
+import Armor from '../../src/ts/model/abstract/Armor';
 
 describe('Character damaging other enitities', () => {
     it('should only allow a character to attack with a ranged weapon when it is loaded', () => {
@@ -184,13 +184,12 @@ describe('Characters wearing armor', () => {
         chestpiece.armorType = 'chest';
 
         expect(character.equip(chestpiece)).toBe(true);
-
     });
 
     it('should reduce damage taken if the user is wearing armor', () => {
         expect(true).toBe(false);
     });
- });
+});
 
 describe('Character trying to damage indestructable enitities', () => {
     it('should negate damage if youv are attacking an indestuctable entity', () => {
@@ -210,8 +209,6 @@ describe('Character trying to damage indestructable enitities', () => {
         expect(sandbag.stats.health).toBe(-1);
     });
 });
-
-
 
 describe('Effects of modifiers on a character', () => {
     it('should increase the characters stats', () => {

@@ -1,5 +1,5 @@
-import { Magasine, WeaponSights, WeaponGrip } from "../../src/ts/model/Weapons/WeaponSlots";
-import RangedWeapon from "../../src/ts/model/Weapons/RangedWeapon";
+import { Magasine, WeaponSights, WeaponGrip } from '../../src/ts/model/Weapons/WeaponSlots';
+import RangedWeapon from '../../src/ts/model/Weapons/RangedWeapon';
 
 describe('Wepon tests', () => {
     it('should not let me remove fixed items from weapons (e.g a bows magasine)', () => {
@@ -16,7 +16,6 @@ describe('Wepon tests', () => {
 
         rifle.attach(rifleMag);
         expect(rifle.remove('magasine')).toBe(false);
-
     });
 
     it('should update stats for a weapon based on the components that have been attacked to it', () => {
@@ -41,7 +40,7 @@ describe('Wepon tests', () => {
         expect(rifle.calculatedStats.accuracy).toBe(10);
     });
 
-    it('should not let me slot a component to a weapon which doesn\'t have a slot for it', () => {
+    it("should not let me slot a component to a weapon which doesn't have a slot for it", () => {
         const rifle = new RangedWeapon();
         const rifleGrip = new WeaponGrip();
 
@@ -75,7 +74,5 @@ describe('Wepon tests', () => {
         expect(rifle.use()).toBe(true);
 
         expect(rifle.slots.magasine.ammoLoaded).toBe(9);
-
-
     });
 });

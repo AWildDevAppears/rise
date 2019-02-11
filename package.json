@@ -9,11 +9,20 @@
     "typescript": "^3.2.2"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.13"
+    "@types/jest": "^23.3.13",
+    "prettier": "^1.16.4"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest && npm run prettier-test",
+    "prettier": "./node_modules/.bin/prettier --write \"{__tests__,src}/**/*.{js,ts,scss,html}\"",
+    "prettier-test": "./node_modules/.bin/prettier --list-different \"{__tests__,src}/**/*.{js,ts,scss,html}\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "prettier": {
+    "tabWidth": 4,
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
 }

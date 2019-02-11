@@ -2,7 +2,6 @@ import Inventory from '../../src/ts/model/Inventory';
 import Item from '../../src/ts/model/abstract/Item';
 import Modifier from '../../src/ts/model/Modifier';
 
-
 describe('Adding and removing items', () => {
     it('should allow me to add an item to my inventory', () => {
         const inv = new Inventory(1);
@@ -18,7 +17,7 @@ describe('Adding and removing items', () => {
         expect(inv.addItem(item, 2)).toBe(false);
     });
 
-    it('shouldn\'t let me remove an item I don\'t have', () => {
+    it("shouldn't let me remove an item I don't have", () => {
         const inv = new Inventory(1);
 
         expect(inv.removeItem('this-is-id')).toBe(false);
@@ -28,8 +27,8 @@ describe('Adding and removing items', () => {
 describe('getting your inventory as a map', () => {
     it('should return an accurate keyed map of the items I have', () => {
         const inv = new Inventory(10);
-        inv.addItem(new Item('this-is-id'), 2)
-        inv.addItem(new Item('this-is-id-2'))
+        inv.addItem(new Item('this-is-id'), 2);
+        inv.addItem(new Item('this-is-id-2'));
 
         const obj = inv.asObject();
 
@@ -39,7 +38,7 @@ describe('getting your inventory as a map', () => {
 });
 
 describe('Using items', () => {
-    it('shouldn\'t let me use an item with no use', () => {
+    it("shouldn't let me use an item with no use", () => {
         const inv = new Inventory(1);
         const item = new Item('this-is-id');
 
@@ -52,9 +51,7 @@ describe('Using items', () => {
         const inv = new Inventory(1);
         const item = new Item('this-is-id');
         item.stats.health = 10;
-        item.effects = [
-            new Modifier('modifier-id'),
-        ];
+        item.effects = [new Modifier('modifier-id')];
 
         inv.addItem(item, 1);
 
@@ -63,13 +60,11 @@ describe('Using items', () => {
         expect(Array.isArray(use)).toBe(true);
     });
 
-    it('should remove an item if it\'s used up', () => {
+    it("should remove an item if it's used up", () => {
         const inv = new Inventory(1);
         const item = new Item('this-is-id');
         item.stats.health = 1;
-        item.effects = [
-            new Modifier('modifier-id'),
-        ];
+        item.effects = [new Modifier('modifier-id')];
 
         inv.addItem(item, 1);
 
