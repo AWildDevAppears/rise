@@ -1,10 +1,10 @@
-import Inventory from './Inventory';
-import Entity, { IStatistics } from './abstract/Entity';
-import Modifier from './Modifier';
-import Weapon from './abstract/Weapon';
-import Armor from './abstract/Armor';
-import RangedWeapon from './Weapons/RangedWeapon';
-import { WeaponComponent } from './Weapons/WeaponSlots';
+import Inventory from '../Inventory';
+import Entity, { IStatistics } from '../abstract/Entity';
+import Modifier from '../Modifier';
+import Weapon from '../abstract/Weapon';
+import Armor from '../abstract/Armor';
+import RangedWeapon from '../Weapons/RangedWeapon';
+import { WeaponComponent } from '../Weapons/WeaponSlots';
 
 export interface IEquipment {
     weapon: Weapon;
