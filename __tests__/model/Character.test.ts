@@ -1,5 +1,5 @@
 import Modifier from '../../src/ts/model/Modifier';
-import Character from '../../src/ts/model/Characters/Character';
+import Humanoid from '../../src/ts/model/Characters/Humanoid';
 import Entity from '../../src/ts/model/abstract/Entity';
 import RangedWeapon from '../../src/ts/model/Weapons/RangedWeapon';
 import { Magasine, WeaponSights } from '../../src/ts/model/Weapons/WeaponSlots';
@@ -8,7 +8,7 @@ import Armor from '../../src/ts/model/abstract/Armor';
 
 describe('Character damaging other enitities', () => {
     it('should only allow a character to attack with a ranged weapon when it is loaded', () => {
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
         const rifleMag = new Magasine();
         const ammo = new Item();
@@ -66,7 +66,7 @@ describe('Character damaging other enitities', () => {
     });
 
     it('should let a character fire a gun', () => {
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
         const rifleMag = new Magasine();
         const ammo = new Item();
@@ -99,7 +99,7 @@ describe('Character damaging other enitities', () => {
     });
 
     it('should unequip a component if I try to replace it', () => {
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
         const rifleScope = new WeaponSights('scope');
         const rifleScopeBetter = new WeaponSights('scopeBetter');
@@ -118,7 +118,7 @@ describe('Character damaging other enitities', () => {
 
     it('should allow a character to damage another entity', () => {
         const sandbag = new Entity();
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
 
         rifle.damageMax = 10;
@@ -138,7 +138,7 @@ describe('Character damaging other enitities', () => {
 
     it('should limit the damage based on the entities endurance (5 endurance)', () => {
         const sandbag = new Entity();
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
 
         rifle.damageMax = 10;
@@ -158,7 +158,7 @@ describe('Character damaging other enitities', () => {
 
     it('should limit the damage based on the entities endurance (10 endurance)', () => {
         const sandbag = new Entity();
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
 
         rifle.damageMax = 10;
@@ -179,7 +179,7 @@ describe('Character damaging other enitities', () => {
 
 describe('Characters wearing armor', () => {
     it('should allow the user to equip a piece of armor', () => {
-        const character = new Character();
+        const character = new Humanoid();
         const chestpiece = new Armor();
         chestpiece.armorType = 'chest';
 
@@ -194,7 +194,7 @@ describe('Characters wearing armor', () => {
 describe('Character trying to damage indestructable enitities', () => {
     it('should negate damage if youv are attacking an indestuctable entity', () => {
         const sandbag = new Entity();
-        const character = new Character();
+        const character = new Humanoid();
         const rifle = new RangedWeapon();
 
         rifle.damageMax = 10;
@@ -212,7 +212,7 @@ describe('Character trying to damage indestructable enitities', () => {
 
 describe('Effects of modifiers on a character', () => {
     it('should increase the characters stats', () => {
-        const character = new Character();
+        const character = new Humanoid();
         const mod = new Modifier('health-boost');
         mod.health = 10;
         character.statistics.health = 100;
@@ -222,7 +222,7 @@ describe('Effects of modifiers on a character', () => {
     });
 
     it('should decrease the characters stats', () => {
-        const character = new Character();
+        const character = new Humanoid();
         const mod = new Modifier('health-drain');
         mod.health = -10;
         character.statistics.health = 100;
