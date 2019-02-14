@@ -3,6 +3,8 @@ import Armor from '../abstract/Armor';
 import Character from './Character';
 import RangedWeapon from '../Weapons/RangedWeapon';
 import { WeaponComponent } from '../Weapons/WeaponSlots';
+import Recipe from '../crafting/Recipe';
+
 
 export interface IEquipment {
     weapon: Weapon;
@@ -145,8 +147,10 @@ export default class Humanoid extends Character {
 
                 (this.equipment.weapon as RangedWeapon).reload(ammoToLoad);
             }
-
-            return;
         }
+    }
+
+    craft(recipe: Recipe): any {
+        throw new Error("Method not implemented.");
     }
 }
