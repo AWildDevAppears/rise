@@ -5,7 +5,6 @@ import RangedWeapon from '../Weapons/RangedWeapon';
 import { WeaponComponent } from '../Weapons/WeaponSlots';
 import Recipe from '../crafting/Recipe';
 
-
 export interface IEquipment {
     weapon: Weapon;
     head: Armor;
@@ -150,7 +149,21 @@ export default class Humanoid extends Character {
         }
     }
 
-    craft(recipe: Recipe): any {
-        throw new Error("Method not implemented.");
+    craft(recipe: Recipe): boolean {
+        // Check if we can craft the item
+        for (let k in recipe.ingredients) {
+            if (!this.inventory.contains(k, recipe.ingredients[k])) {
+                return false;
+            }
+        }
+
+        for (let k in recipe.ingredients) {
+            for (let i = 0; i < recipe.ingredients[k]; i++) {
+                this.inventory.removeItem(k);
+            }
+        }
+
+        this.inventory.addItem(recipe.output);
+        return true;
     }
 }

@@ -58,10 +58,15 @@ export default class Inventory {
         return false;
     }
 
-    contains(key: string): boolean {
-        return this.itemList.some(item => {
-            return item.id === key;
+    contains(key: string, amount: number = 1): boolean {
+        let count = 0;
+        this.itemList.forEach(item => {
+            if (item.id === key) {
+                count++;
+            }
         });
+
+        return count >= amount;
     }
 
     count(): number {

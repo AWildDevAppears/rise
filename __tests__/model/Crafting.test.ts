@@ -3,7 +3,6 @@ import RangedWeapon from '../../src/ts/model/Weapons/RangedWeapon';
 import Humanoid from '../../src/ts/model/Characters/Humanoid';
 import Item from '../../src/ts/model/abstract/Item';
 
-
 describe('Crafting', () => {
     it('should let me combine items together to make a weapon', () => {
         const recipe = new Recipe();
@@ -50,7 +49,7 @@ describe('Crafting', () => {
         // Character has all of the required components to make this item
         expect(character.craft(recipe)).toBe(true);
 
-        // All of the items should have been consumed
-        expect(character.inventory.count()).toBe(0);
+        // All of the items should have been consumed and only the item to remain
+        expect(character.inventory.count()).toBe(1);
     });
 });

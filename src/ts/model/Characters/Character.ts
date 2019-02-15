@@ -53,7 +53,7 @@ export default class Character extends Entity {
 
         return stats;
     }
-    
+
     calculateDamage() {
         return this.statistics.strength * 5;
     }
