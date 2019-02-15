@@ -11,4 +11,43 @@ describe('Modifier tests', () => {
         // I can't be on fire twice at the same time.
     });
     it('Should remove a modifier from a piece of armor from a character when they unequip it', () => {});
+    it('should increase the damage of electrocution when a character is wet', () => {
+        // buff modifiers based on other modifiers on the target
+    });
+    it('should take into account a characters resistances when applying modifiers', () => {
+        // A mob that is physically fire cannot be set on fire
+    });
+    it('should increase the strength of modifiers that play to a characters weakness', () => {
+        // You may be fire proof because you are literally fire, but I bet you don't like water.
+    });
+});
+
+describe('Obscure modifiers', () => {
+    it('should allow a door to have a "locked" modifier', () => {});
+    it('should not let me open a locked door', () => {});
+    it('should let me close a locked door', () => {});
+
+    it('should let a key have the unlock modifier', () => {});
+    it('should let a door be unlocked with a key', () => {});
+    it('should ensure a key and lock match', () => {
+        // I shouldn't be able to use any key on any door
+    });
+
+    it('should allow some modifiers to destroy themselves after use', () => {});
+
+    it('should allow an item to have a learning modifier', () => {});
+    it('should let a character learn a recipe from a recipe book', () => {});
+});
+
+describe('Contact modifiers', () => {
+    it('should let a glass window infect a character with bleed when they break it with their fists', () => {
+    });
+
+    it('should not infect a character with contact modifiers if no contact is made', () => {
+        // I shouldn't start bleeding if I shoot a window.
+    });
+
+    it('should let a character gain the "wet" effect when standing in a body of water', () => {});
+    it('should let a body of water gain the modifier "electrified" when it is electrocuted', () => {});
+    it('should let electrified water electrocute others that make contact with it', () => {});
 });

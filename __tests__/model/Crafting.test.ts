@@ -52,4 +52,6 @@ describe('Crafting', () => {
         // All of the items should have been consumed and only the item to remain
         expect(character.inventory.count()).toBe(1);
     });
+    it('should not remove any of the items if I cannot craft the item', () => {});
+    it('should let a character learn a recipe', () => {});
 });
