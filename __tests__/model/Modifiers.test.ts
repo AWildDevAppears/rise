@@ -40,8 +40,7 @@ describe('Obscure modifiers', () => {
 });
 
 describe('Contact modifiers', () => {
-    it('should let a glass window infect a character with bleed when they break it with their fists', () => {
-    });
+    it('should let a glass window infect a character with bleed when they break it with their fists', () => {});
 
     it('should not infect a character with contact modifiers if no contact is made', () => {
         // I shouldn't start bleeding if I shoot a window.

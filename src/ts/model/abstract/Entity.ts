@@ -14,7 +14,13 @@ export interface IStatistics {
     stamina: number;
 }
 
-export default class Entity {
+export interface IObject {
+    hasCollidedWith: (entity: Entity) => void;
+    hasBeenAttackedBy: (entity: Entity) => void;
+    hasBeenInteractedWithBy: (entity: Entity) => void;
+}
+
+export default class Entity implements IObject {
     x: number = 0;
     y: number = 0;
     z: number = 0;
@@ -26,7 +32,9 @@ export default class Entity {
         endurance: 0,
     };
 
-    constructor(public id: string = '') {}
+    constructor(public id: string = '') {
+        if (!this.id) return;
+    }
 
     takeDamage(damage: number = 0, modifiers: Modifier[] = []) {
         if (this.stats.health === -1) return;
@@ -42,4 +50,11 @@ export default class Entity {
     }
 
     interact() {}
+
+    hasCollidedWith() {}
+
+    hasBeenAttackedBy() {}
+
+    hasBeenInteractedWithBy() {}
 }
+
