@@ -1,5 +1,5 @@
 describe('Faction tests', () => {
-    it('Should allow a character to join a fatcion', () => {});
+    it('Should allow a character to join a faction', () => {});
     it('Should allow a character to be evicted from a faction', () => {});
     it('Should allow a character to join multiple factions', () => {});
     it('Should allow a character to gain populatity in a faction', () => {});

@@ -4,6 +4,7 @@ import Character from './Character';
 import RangedWeapon from '../Weapons/RangedWeapon';
 import { WeaponComponent } from '../Weapons/WeaponSlots';
 import Recipe from '../crafting/Recipe';
+import Modifier from '../Modifier';
 
 export interface IEquipment {
     weapon: Weapon;
@@ -14,7 +15,7 @@ export interface IEquipment {
     gloves: Armor;
 }
 
-const DEFENCE_MODIFIER = 0.12;
+const DEFENCE_MODIFIER = 0.1;
 
 export default class Humanoid extends Character {
     equipment: IEquipment = {
@@ -90,16 +91,9 @@ export default class Humanoid extends Character {
     calculateDamage(): number {
         if (this.equipment.weapon) {
             const weapon = this.equipment.weapon;
-
-            let armorDefence = 0;
-
-            if (this.defence > 0) {
-                armorDefence = this.defence / DEFENCE_MODIFIER;
-            }
-
             const weaponDamage = weapon.calculateDamage();
 
-            return Math.floor(weaponDamage - armorDefence);
+            return Math.floor(weaponDamage);
         } else {
             return 0;
         }
@@ -119,6 +113,10 @@ export default class Humanoid extends Character {
         }
 
         return false;
+    }
+
+    takeDamage(damage: number, modifiers: Modifier[] = []) {
+        this.stats.health -= damage - this.defence * DEFENCE_MODIFIER;
     }
 
     reload() {

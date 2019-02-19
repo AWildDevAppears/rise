@@ -57,4 +57,3 @@ export default class Entity implements IObject {
 
     hasBeenInteractedWithBy() {}
 }
-

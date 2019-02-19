@@ -10,7 +10,7 @@ export default class Character extends Entity {
     name: string = '';
     inventory: Inventory = new Inventory(28);
 
-    statistics: IStatistics = {
+    stats: IStatistics = {
         awareness: 0,
         charisma: 0,
         dexterity: 0,
@@ -25,7 +25,7 @@ export default class Character extends Entity {
     effectsApplied: Modifier[] = [];
 
     get calculatedStats(): IStatistics {
-        const stats = this.statistics;
+        const stats = this.stats;
 
         this.effectsApplied.forEach(effect => {
             if (effect.ticks === 0) return;
@@ -54,8 +54,17 @@ export default class Character extends Entity {
         return stats;
     }
 
+    addModifier(mod: Modifier) {
+        const index = this.effectsApplied.map(m => m.id).indexOf(mod.id);
+        if (index !== -1) {
+            this.effectsApplied.splice(index, 1);
+        }
+
+        this.effectsApplied.push(mod);
+    }
+
     calculateDamage() {
-        return this.statistics.strength * 5;
+        return this.stats.strength * 5;
     }
 
     constructor(id: string = '') {

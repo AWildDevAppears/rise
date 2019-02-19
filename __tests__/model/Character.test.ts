@@ -187,7 +187,19 @@ describe('Characters wearing armor', () => {
     });
 
     it('should reduce damage taken if the user is wearing armor', () => {
-        expect(true).toBe(true);
+        const character = new Humanoid();
+        const chestpiece = new Armor();
+
+        character.stats.health = 100;
+
+        chestpiece.armorType = 'chest';
+        chestpiece.defence = 10;
+
+        character.equip(chestpiece);
+
+        character.takeDamage(10);
+
+        expect(character.stats.health).toBe(91);
     });
 });
 
@@ -215,7 +227,7 @@ describe('Effects of modifiers on a character', () => {
         const character = new Humanoid();
         const mod = new Modifier('health-boost');
         mod.health = 10;
-        character.statistics.health = 100;
+        character.stats.health = 100;
         character.effectsApplied.push(mod);
 
         expect(character.calculatedStats.health).toBe(110);
@@ -225,7 +237,7 @@ describe('Effects of modifiers on a character', () => {
         const character = new Humanoid();
         const mod = new Modifier('health-drain');
         mod.health = -10;
-        character.statistics.health = 100;
+        character.stats.health = 100;
         character.effectsApplied.push(mod);
 
         expect(character.calculatedStats.health).toBe(90);

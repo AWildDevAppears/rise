@@ -1,5 +1,20 @@
+import Humanoid from '../../src/ts/model/Characters/Humanoid';
+import Modifier from '../../src/ts/model/Modifier';
+
 describe('Modifier tests', () => {
-    it('Should apply modifers to characters', () => {});
+    it('Should apply modifers to characters', () => {
+        const character = new Humanoid();
+        const mod = new Modifier('charisma-boost');
+
+        character.stats.charisma = 7;
+
+        mod.charisma = 3;
+
+        character.addModifier(mod);
+
+        expect(character.effectsApplied.length).toBe(1);
+        expect(character.calculatedStats.charisma).toBe(10);
+    });
     it('Should apply modifiers from potions to a character', () => {});
     it('Should apply modifiers from weapons to a character', () => {});
     it('Should allow modifiers to override other modifiers', () => {
