@@ -1,6 +1,18 @@
+import Humanoid from '../../src/ts/model/Characters/Humanoid';
+import Armor from '../../src/ts/model/abstract/Armor';
+
 describe('Armor tests', () => {
-    it('should let a character equip an item of armor', () => {});
-    it('should slot a piece of armor in the correct slot', () => {});
+    it('should let a character equip an item of armor', () => {
+        const character = new Humanoid();
+        const armor = new Armor();
+        armor.armorType = 'chest';
+        armor.id = 'chest-armor';
+
+        character.equip(armor);
+
+        expect(character.equipment.chest.id).toBe(armor.id);
+
+    });
     it('should negate some damage to a character wearing armor', () => {});
     it('should never equate to zero damage', () => {});
     it('should not negate damage when the player is wearing broken armor', () => {});
