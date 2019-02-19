@@ -22,6 +22,8 @@ export default class Character extends Entity {
         stamina: 0,
     };
 
+    resistances: string[] = [];
+
     effectsApplied: Modifier[] = [];
 
     get calculatedStats(): IStatistics {
@@ -55,10 +57,25 @@ export default class Character extends Entity {
     }
 
     addModifier(mod: Modifier) {
-        const index = this.effectsApplied.map(m => m.id).indexOf(mod.id);
+        const effects = this.effectsApplied.map(m => m.id);
+        const index = effects.indexOf(mod.id);
+
+        // Can't apply a status effect to a character that is resistant to it.
+        if (this.resistances.indexOf(mod.id) !== -1) {
+            return;
+        }
+
         if (index !== -1) {
             this.effectsApplied.splice(index, 1);
         }
+
+        mod.negates.forEach(m => {
+            const i = effects.indexOf(m);
+            if (i !== -1) {
+                this.effectsApplied.splice(i, 1);
+                effects.splice(i, 1);
+            }
+        });
 
         this.effectsApplied.push(mod);
     }

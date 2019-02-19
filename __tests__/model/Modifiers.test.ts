@@ -19,8 +19,34 @@ describe('Modifier tests', () => {
     it('Should apply modifiers from weapons to a character', () => {});
     it('Should allow modifiers to override other modifiers', () => {
         // If I am on fire, and then I get the wet modifier, I should lose the burning modifier
+        const character = new Humanoid();
+        const burnMod = new Modifier('burn-mod');
+        const wetMod = new Modifier('wet-mod');
+
+        wetMod.negates.push('burn-mod');
+
+        character.addModifier(burnMod);
+
+        expect(character.effectsApplied.length).toBe(1);
+        expect(character.effectsApplied[0].id).toBe('burn-mod');
+
+        character.addModifier(wetMod);
+
+        expect(character.effectsApplied.length).toBe(1);
+        expect(character.effectsApplied[0].id).toBe('wet-mod');
     });
-    it('Should allow me to get several modifiers', () => {});
+    it('Should allow me to get several modifiers', () => {
+        const character = new Humanoid();
+        const modOne = new Modifier('one');
+        const modTwo = new Modifier('two');
+        const modThree = new Modifier('three');
+
+        character.addModifier(modOne);
+        character.addModifier(modTwo);
+        character.addModifier(modThree);
+
+        expect(character.effectsApplied.length).toBe(3);
+    });
     it('Should take modifiers into account when calculating stats', () => {});
     it('Should not allow a character to have two modifiers of of the same type', () => {
         // I can't be on fire twice at the same time.
@@ -31,6 +57,14 @@ describe('Modifier tests', () => {
     });
     it('should take into account a characters resistances when applying modifiers', () => {
         // A mob that is physically fire cannot be set on fire
+        const character = new Humanoid();
+        const burn = new Modifier('burn');
+
+        character.resistances.push('burn');
+
+        character.addModifier(burn);
+
+        expect(character.effectsApplied.length).toBe(0);
     });
     it('should increase the strength of modifiers that play to a characters weakness', () => {
         // You may be fire proof because you are literally fire, but I bet you don't like water.

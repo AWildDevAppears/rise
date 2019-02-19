@@ -1,6 +1,6 @@
 import { IStatistics } from './abstract/Entity';
 
-export interface IModifierBuff = {
+export interface IModifierBuff {
     key: string;
     percentage: number;
 }
@@ -34,4 +34,3 @@ export default class Modifier implements IStatistics {
 
     constructor(public id: string) {}
 }
-
