@@ -21,6 +21,7 @@ describe('Adding and removing items', () => {
         const inv = new Inventory(1);
 
         expect(inv.removeItem('this-is-id')).toBe(false);
+        expect(inv.removeItemAtPos(1)).toBe(false);
     });
 });
 
@@ -72,5 +73,10 @@ describe('Using items', () => {
 
         expect(Array.isArray(use)).toBe(true);
         expect(inv.removeItem('this-is-id')).toBe(false);
+    });
+
+    it('should not allow me to use an item I don\'t have', () => {
+        const inv = new Inventory(1);
+        expect(inv.useItem('not-an-item')).toBeUndefined();
     });
 });

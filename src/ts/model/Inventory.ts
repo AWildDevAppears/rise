@@ -11,7 +11,7 @@ export default class Inventory {
      * addItem
      * @param {Item} item - the item to add to the inventory
      * @param {number} count - the number of items of this type to add
-     * @return {boolean} whether the process was completely successfull or not
+     * @return {boolean} whether the process was completely successful or not
      */
     addItem(item: Item, count: number = 1): boolean {
         for (let i = 0; i < count; i++) {
@@ -28,7 +28,7 @@ export default class Inventory {
     /**
      * removeItem
      * @param {string} itemId - Id of the item we wassnt to remove
-     * @return {boolean} whether the process was completely successfull or not
+     * @return {boolean} whether the process was completely successful or not
      */
     removeItem(itemId: string): boolean {
         var removed = false;
@@ -47,7 +47,7 @@ export default class Inventory {
     /**
      * removeItem
      * @param {number} pos - index of the item we want to remove
-     * @return {boolean} whether the process was completely successfull or not
+     * @return {boolean} whether the process was completely successful or not
      */
     removeItemAtPos(pos: number): boolean {
         if (this.itemList[pos]) {
