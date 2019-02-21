@@ -1,7 +1,9 @@
-import Entity from '../abstract/Entity';
+import Structure from './Structure';
 
-export default class Door extends Entity {
+export default class Door extends Structure {
     use() {
-        this.isSolid = !this.isSolid;
+        if (this.stats.isLocked) return;
+        this.stats.isOpen = !this.stats.isOpen;
+        this.isSolid = this.stats.isOpen;
     }
 }
