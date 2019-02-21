@@ -18,6 +18,8 @@ export interface IEquipment {
 const DEFENCE_MODIFIER = 0.1;
 
 export default class Humanoid extends Character {
+    recipes: Recipe[] = [];
+
     equipment: IEquipment = {
         weapon: undefined,
         head: undefined,
@@ -39,11 +41,25 @@ export default class Humanoid extends Character {
     get defence(): number {
         let defence = 0;
 
-        defence += this.equipment.boots ? this.equipment.boots.defence : 0;
-        defence += this.equipment.chest ? this.equipment.chest.defence : 0;
-        defence += this.equipment.gloves ? this.equipment.gloves.defence : 0;
-        defence += this.equipment.head ? this.equipment.head.defence : 0;
-        defence += this.equipment.legs ? this.equipment.legs.defence : 0;
+        if (this.equipment.boots && this.equipment.boots.stats.health !== 0) {
+            defence += this.equipment.boots.defence;
+        }
+
+        if (this.equipment.chest && this.equipment.chest.stats.health !== 0) {
+            defence += this.equipment.chest.defence;
+        }
+
+        if (this.equipment.gloves && this.equipment.gloves.stats.health !== 0) {
+            defence += this.equipment.gloves.defence;
+        }
+
+        if (this.equipment.head && this.equipment.head.stats.health !== 0) {
+            defence += this.equipment.head.defence;
+        }
+
+        if (this.equipment.legs && this.equipment.legs.stats.health !== 0) {
+            defence = this.equipment.legs.defence;
+        }
 
         return defence;
     }
@@ -116,7 +132,11 @@ export default class Humanoid extends Character {
     }
 
     takeDamage(damage: number, modifiers: Modifier[] = []) {
+        const health = this.stats.health;
         this.stats.health -= damage - this.defence * DEFENCE_MODIFIER;
+        if (this.stats.health >= health) {
+            this.stats.health = health - 1;
+        }
     }
 
     reload() {
@@ -145,6 +165,14 @@ export default class Humanoid extends Character {
                 (this.equipment.weapon as RangedWeapon).reload(ammoToLoad);
             }
         }
+    }
+    addRecipe(recipe: Recipe): boolean {
+        if (this.recipes.map(r => r.id).indexOf(recipe.id) !== -1) {
+            return false;
+        }
+
+        this.recipes.push(recipe);
+        return true;
     }
 
     craft(recipe: Recipe): boolean {
