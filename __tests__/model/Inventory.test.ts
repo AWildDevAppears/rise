@@ -23,6 +23,15 @@ describe('Adding and removing items', () => {
         expect(inv.removeItem('this-is-id')).toBe(false);
         expect(inv.removeItemAtPos(1)).toBe(false);
     });
+
+    it('should allow me to remove an item I have', () => {
+        const inv = new Inventory(1);
+        const item = new Item('id');
+
+        inv.addItem(item);
+
+        expect(inv.removeItem(item.id)).toBe(true);
+    });
 });
 
 describe('getting your inventory as a map', () => {
@@ -75,7 +84,7 @@ describe('Using items', () => {
         expect(inv.removeItem('this-is-id')).toBe(false);
     });
 
-    it('should not allow me to use an item I don\'t have', () => {
+    it("should not allow me to use an item I don't have", () => {
         const inv = new Inventory(1);
         expect(inv.useItem('not-an-item')).toBeUndefined();
     });

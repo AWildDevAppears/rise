@@ -27,7 +27,7 @@ export default class Inventory {
 
     /**
      * removeItem
-     * @param {string} itemId - Id of the item we wassnt to remove
+     * @param {string} itemId - Id of the item we want to remove
      * @return {boolean} whether the process was completely successful or not
      */
     removeItem(itemId: string): boolean {

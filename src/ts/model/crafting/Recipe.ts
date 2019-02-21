@@ -4,4 +4,6 @@ export default class Recipe {
     ingredients: { [key: string]: number };
     output: Item;
     skillRequirements: { [key: string]: number };
+
+    constructor(public id: string = '') {}
 }
