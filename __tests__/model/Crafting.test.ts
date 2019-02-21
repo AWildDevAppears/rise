@@ -99,4 +99,7 @@ describe('Crafting', () => {
         expect(character.addRecipe(recipe)).toBe(true);
         expect(character.addRecipe(recipe)).toBe(false);
     });
+
+    it('should not let a character without the required skills craft something', () => {
+    });
 });
