@@ -15,6 +15,7 @@ export default class Modifier implements IStatistics {
     permenant: boolean = false;
 
     // All of these numbers can be negative or positive
+    // TODO: wrap this up as a payload.
     awareness = 0;
     charisma = 0;
     dexterity = 0;

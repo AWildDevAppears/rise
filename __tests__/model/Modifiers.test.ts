@@ -58,13 +58,49 @@ describe('Modifier tests', () => {
 
         expect(character.effectsApplied.length).toBe(3);
     });
-    it('Should take modifiers into account when calculating stats', () => {});
+    it('Should take modifiers into account when calculating stats', () => {
+        const character = new Humanoid();
+        const mod = new Modifier('mod');
+
+        character.stats.awareness = 3
+        mod.awareness = 7;
+
+        expect(character.calculatedStats.awareness).toBe(3);
+        character.addModifier(mod);
+        expect(character.calculatedStats.awareness).toBe(10);
+    });
     it('Should not allow a character to have two modifiers of of the same type', () => {
         // I can't be on fire twice at the same time.
+        const character = new Humanoid();
+        const mod = new Modifier('burn');
+
+        character.addModifier(mod);
+        character.addModifier(mod);
+
+        expect(character.effectsApplied.length).toBe(1);
     });
     it('Should remove a modifier from a piece of armor from a character when they unequip it', () => {});
     it('should increase the damage of electrocution when a character is wet', () => {
         // buff modifiers based on other modifiers on the target
+        const character = new Humanoid();
+        const shock = new Modifier('shock');
+        const wet = new Modifier('wet');
+
+        character.stats.moveSpeed = 10;
+
+        shock.buffs = [{
+            key: 'wet',
+            percentage: 50
+        }];
+
+        shock.moveSpeed = -2;
+
+        character.addModifier(wet);
+        character.addModifier(shock);
+        
+        console.log(character.effectsApplied);
+
+        expect(character.calculatedStats.moveSpeed).toBe(7);
     });
     it('should take into account a characters resistances when applying modifiers', () => {
         // A mob that is physically fire cannot be set on fire

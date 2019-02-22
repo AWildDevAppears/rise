@@ -21,6 +21,7 @@ export default class Character extends Entity {
         strength: 0,
         health: 0,
         stamina: 0,
+        moveSpeed: 0,
     };
 
     resistances: string[] = [];
@@ -42,17 +43,13 @@ export default class Character extends Entity {
             stats.strength += effect.strength;
             stats.health += effect.health;
             stats.stamina += effect.stamina;
+            stats.moveSpeed += effect.moveSpeed;
         });
 
-        stats.awareness = stats.awareness >= 0 ? stats.awareness : 0;
-        stats.charisma = stats.charisma >= 0 ? stats.charisma : 0;
-        stats.dexterity = stats.dexterity >= 0 ? stats.dexterity : 0;
-        stats.endurance = stats.endurance >= 0 ? stats.endurance : 0;
-        stats.intelligence = stats.intelligence >= 0 ? stats.intelligence : 0;
-        stats.luck = stats.luck >= 0 ? stats.luck : 0;
-        stats.strength = stats.strength >= 0 ? stats.strength : 0;
-        stats.health = stats.health >= 0 ? stats.health : 0;
-        stats.stamina = stats.stamina >= 0 ? stats.stamina : 0;
+        // Ensure we don't have negative stats
+        for (let k in stats) {
+            stats[k] = stats[k] >= 0 ? stats[k] : 0;
+        }
 
         return stats;
     }
@@ -77,8 +74,29 @@ export default class Character extends Entity {
                 effects.splice(i, 1);
             }
         });
-
+    
         this.effectsApplied.push(mod);
+        
+        if (!mod.buffs) {
+            return;
+        }
+
+        mod.buffs.forEach(buff => {
+            const buffedModId = this.effectsApplied.map(m => m.id).indexOf(buff.key); 
+            
+            if (buffedModId === -1) {
+                return;
+            }
+
+            const buffedMod = this.effectsApplied[buffedModId];
+            const buffer = new Modifier(`buff:${buffedMod.id}:${mod.id}`);
+            
+            for (let k in buffer) {
+                buffer[k] = buffedMod[k] * (buff.percentage / 100);
+            }
+
+            this.effectsApplied.push(buffer);
+        });
     }
 
     calculateDamage() {

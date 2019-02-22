@@ -12,6 +12,7 @@ export interface IStatistics {
     strength: number;
     health: number;
     stamina: number;
+    moveSpeed: number;
 }
 
 export interface IObject {
