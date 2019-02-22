@@ -101,5 +101,22 @@ describe('Crafting', () => {
     });
 
     it('should not let a character without the required skills craft something', () => {
+        const character = new Humanoid();
+        const recipe = new Recipe();
+        const output = new Item();
+
+        recipe.skillRequirements = {
+            intelligence: 2,
+        };
+
+        recipe.output = output;
+
+        character.stats.intelligence = 1;
+
+        expect(character.craft(recipe)).toBe(false);
+
+        character.stats.intelligence = 2;
+
+        expect(character.craft(recipe)).toBe(true);
     });
 });

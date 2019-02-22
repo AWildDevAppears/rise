@@ -177,6 +177,12 @@ export default class Humanoid extends Character {
     }
 
     craft(recipe: Recipe): boolean {
+        for (let k in recipe.skillRequirements) {
+            if (recipe.skillRequirements[k] > this.stats[k]) {
+                return false;
+            }
+        }
+
         // Check if we can craft the item
         for (let k in recipe.ingredients) {
             if (!this.inventory.contains(k, recipe.ingredients[k])) {
