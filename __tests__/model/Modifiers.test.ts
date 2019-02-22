@@ -1,5 +1,6 @@
 import Humanoid from '../../src/ts/model/Characters/Humanoid';
 import Modifier from '../../src/ts/model/Modifier';
+import Item from '../../src/ts/model/abstract/Item';
 
 describe('Modifier tests', () => {
     it('Should apply modifers to characters', () => {
@@ -15,7 +16,17 @@ describe('Modifier tests', () => {
         expect(character.effectsApplied.length).toBe(1);
         expect(character.calculatedStats.charisma).toBe(10);
     });
-    it('Should apply modifiers from potions to a character', () => {});
+    it('Should apply modifiers from potions to a character', () => {
+        const character = new Humanoid();
+        const item = new Item();
+        const mod = new Modifier('buff');
+
+        item.effects.push(mod);
+
+        character.useItem(item);
+
+        expect(character.effectsApplied[0].id).toBe('buff');
+    });
     it('Should apply modifiers from weapons to a character', () => {});
     it('Should allow modifiers to override other modifiers', () => {
         // If I am on fire, and then I get the wet modifier, I should lose the burning modifier

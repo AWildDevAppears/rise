@@ -5,6 +5,7 @@ import Weapon from '../abstract/Weapon';
 import Armor from '../abstract/Armor';
 import RangedWeapon from '../Weapons/RangedWeapon';
 import { WeaponComponent } from '../Weapons/WeaponSlots';
+import Item from '../abstract/Item';
 
 export default class Character extends Entity {
     name: string = '';
@@ -82,6 +83,18 @@ export default class Character extends Entity {
 
     calculateDamage() {
         return this.stats.strength * 5;
+    }
+
+    useItem(item: Item): boolean {
+        if (!item.use()) {
+            return false;
+        }
+        
+        item.effects.forEach(mod => {
+            this.addModifier(mod);
+        });
+
+        return true;
     }
 
     constructor(id: string = '') {
