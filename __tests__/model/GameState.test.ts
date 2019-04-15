@@ -1,4 +1,6 @@
 import ChessboardGameState from '../../src/ts/model/GameState/ChessboardGameState';
+import Item from '../../src/ts/model/abstract/Item';
+
 
 describe('Game state - chessboard movement', () => {
     const game = ChessboardGameState;
@@ -22,23 +24,58 @@ describe('Game state - chessboard movement', () => {
                             },
                         ]
                     }
-                ]
+                ],
+                items: [],
             },
             north: {
                 south: 'middle',
                 scenes: [],
+                items: [],
             },
             south: {
                 north: 'middle',
                 scenes: [],
+                items: [],
             },
             east: {
                 west: 'middle',
                 scenes: [],
+                items: [],
             },
             west: {
                 east: 'middle',
-                scenes: [],
+                scenes: [
+                    {
+                        id: 'has-fork',
+                        title: 'I have a fork',
+                        body: [{}],
+                        when: [
+                            {
+                                item: {
+                                    id: 'id-fork',
+                                    exists: true,
+                                }
+                            },
+                        ]
+                    },
+                    {
+                        id: 'no-fork',
+                        title: 'I have no fork',
+                        body: [{}],
+                        when: [
+                            {
+                                item: {
+                                    id: 'id-fork',
+                                    exists: false,
+                                }
+                            },
+                        ],
+                    }
+                ],
+                items: [
+                    new Item('id-spoon'),
+                    new Item('id-fork'),
+                ],
             },
         },
     };
@@ -91,9 +128,33 @@ describe('Game state - chessboard movement', () => {
 
     it('should load a scene for the location I am in', () => {
         game.player.location = 'middle';
-
         game.loadScene();
 
         expect(game.scene.id).toBe('middle-scene');
     });
+
+    it('should allow items in a location', () => {
+        game.player.location = 'west';
+
+        const items = game.listAllItems();
+        const expectedItems = ['id-spoon', 'id-fork'];
+
+        items.forEach((item: Item) => {
+            expect(expectedItems.indexOf(item.id)).not.toBe(-1);
+        })
+    });
+
+    it('should load the correct scene depending which flags are set', () => {
+        game.player.location = 'west';
+        game.loadScene();
+
+        // I should get a scene that says I have the fork
+        expect(game.scene.id).toBe('has-fork');
+
+        game.map.locations[game.player.location].items.pop();
+        game.loadScene();
+
+        // I've just removed the fork so load the other scene
+        expect(game.scene.id).toBe('no-fork');
+    })
 });

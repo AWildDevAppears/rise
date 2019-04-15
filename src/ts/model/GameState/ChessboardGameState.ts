@@ -1,5 +1,6 @@
 import Humanoid from '../Characters/Humanoid';
 import Character from '../Characters/Character';
+import Item from '../abstract/Item';
 
 export type Direction = 'north' | 'south' | 'east' | 'west';
 
@@ -9,7 +10,7 @@ export class ChessboardHumanoid extends Humanoid {
     ChessboardHumanoid(location: string) {
         this.location = location;
     }
-}
+};
 
 export class ChessboardCharacter extends Character {
     location: string = '';
@@ -17,7 +18,14 @@ export class ChessboardCharacter extends Character {
     ChessboardCharacter(location: string) {
         this.location = location;
     }
-}
+};
+
+interface ISceneWhen {
+    item?: {
+        id: string,
+        exists: boolean,
+    };
+};
 
 export interface ISceneBodySection {
     heading?: string;
@@ -28,7 +36,8 @@ export interface IScene {
     id: string;
     title: string;
     body: ISceneBodySection[];
-}
+    when?: ISceneWhen[];
+};
 
 export interface ILocation {
     north?: string;
@@ -36,12 +45,13 @@ export interface ILocation {
     east?: string;
     west?: string;
     scenes: IScene[];
-}
+    items: Item[];
+};
 
 export interface IMap {
     id: string;
     locations: { [key: string]: ILocation }
-}
+};
 
 class ChessboardGameState {
     player: ChessboardHumanoid;
@@ -77,9 +87,32 @@ class ChessboardGameState {
     }
 
     loadScene() {
+        const location = this.map.locations[this.player.location];
+
+        location.scenes.some((scene) => {
+            if (!scene.when) {
+                this.scene = scene;
+                return true;
+            }
+
+            for (let i = 0; i < scene.when.length; i++) {
+                const when = scene.when[i];
+
+                if (
+                    when.item &&
+                    (location.items.map(item => item.id).indexOf(when.item.id) !== -1) === when.item.exists
+                ) {
+                    this.scene = scene;
+                    return true;
+                }
+            }
+        });
+    }
+
+    listAllItems(): Item[] {
         const location = this.player.location;
 
-        this.scene = this.map.locations[location].scenes[0];
+        return this.map.locations[location].items;
     }
 }
 
