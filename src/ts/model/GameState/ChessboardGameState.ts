@@ -124,7 +124,7 @@ class ChessboardGameState {
     }
 
     sendAction(action: string) {
-        const actionArray = action.split(' ');
+        const actionArray = action.toLowerCase().split(' ');
         const leader = actionArray.splice(0, 1)[0];
 
         const normalisedLeader = ViableCommands[leader];
@@ -149,6 +149,21 @@ class ChessboardGameState {
 
                 this.player.inventory.addItem(this.map.locations[this.player.location].items.splice(itemIndex, 1)[0]);
                 break;
+            case 'go':
+                let direction = '';
+
+                if (
+                    !actionArray.some(word => {
+                        if (word === 'north' || word === 'south' || word === 'east' || word === 'west') {
+                            direction = word;
+                            return true;
+                        }
+                    })
+                ) {
+                    return;
+                }
+
+                this.moveEntity('player', direction as Direction);
             default:
         }
 

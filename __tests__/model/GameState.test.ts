@@ -163,13 +163,20 @@ describe('Game state - chessboard movement', () => {
         game.map.locations[game.player.location].items.push(fork);
     });
 
-    it('should all ow the player to pick up an item from the location', () => {
+    it('should allow the player to pick up an item from the location', () => {
         game.player.location = 'west';
 
         game.sendAction('pick up fork');
-        game.loadScene();
 
         expect(game.scene.id).toBe('no-fork');
         expect(game.player.inventory.count()).toBe(1);
+    });
+
+    it('should allow the player to move with a command', () => {
+        game.player.location = 'middle';
+
+        game.sendAction('move west');
+
+        expect(game.player.location).toBe('west');
     });
 });
