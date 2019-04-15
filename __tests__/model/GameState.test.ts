@@ -1,7 +1,6 @@
 import ChessboardGameState from '../../src/ts/model/GameState/ChessboardGameState';
 import Item from '../../src/ts/model/abstract/Item';
 
-
 describe('Game state - chessboard movement', () => {
     const game = ChessboardGameState;
 
@@ -22,8 +21,8 @@ describe('Game state - chessboard movement', () => {
                             {
                                 body: 'Welcome to the middle scene',
                             },
-                        ]
-                    }
+                        ],
+                    },
                 ],
                 items: [],
             },
@@ -54,9 +53,9 @@ describe('Game state - chessboard movement', () => {
                                 item: {
                                     id: 'id-fork',
                                     exists: true,
-                                }
+                                },
                             },
-                        ]
+                        ],
                     },
                     {
                         id: 'no-fork',
@@ -67,15 +66,12 @@ describe('Game state - chessboard movement', () => {
                                 item: {
                                     id: 'id-fork',
                                     exists: false,
-                                }
+                                },
                             },
                         ],
-                    }
+                    },
                 ],
-                items: [
-                    new Item('id-spoon'),
-                    new Item('id-fork'),
-                ],
+                items: [new Item('id-spoon'), new Item('id-fork')],
             },
         },
     };
@@ -106,7 +102,7 @@ describe('Game state - chessboard movement', () => {
 
         game.moveEntity('player', 'west');
 
-        expect(game.player.location).toBe('west')
+        expect(game.player.location).toBe('west');
     });
 
     it('should let me move north and then back', () => {
@@ -141,7 +137,7 @@ describe('Game state - chessboard movement', () => {
 
         items.forEach((item: Item) => {
             expect(expectedItems.indexOf(item.id)).not.toBe(-1);
-        })
+        });
     });
 
     it('should load the correct scene depending which flags are set', () => {
@@ -156,5 +152,5 @@ describe('Game state - chessboard movement', () => {
 
         // I've just removed the fork so load the other scene
         expect(game.scene.id).toBe('no-fork');
-    })
+    });
 });

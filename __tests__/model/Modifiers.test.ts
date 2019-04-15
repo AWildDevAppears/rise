@@ -62,7 +62,7 @@ describe('Modifier tests', () => {
         const character = new Humanoid();
         const mod = new Modifier('mod');
 
-        character.stats.awareness = 3
+        character.stats.awareness = 3;
         mod.awareness = 7;
 
         expect(character.calculatedStats.awareness).toBe(3);
@@ -88,12 +88,14 @@ describe('Modifier tests', () => {
 
         character.stats.moveSpeed = 10;
 
-        shock.buffs = [{
-            key: 'wet',
-            percentage: 50
-        }];
+        shock.buffs = [
+            {
+                key: 'wet',
+                percentage: 50,
+            },
+        ];
 
-        shock.moveSpeed = -2;
+        wet.moveSpeed = -2;
 
         character.addModifier(wet);
         character.addModifier(shock);

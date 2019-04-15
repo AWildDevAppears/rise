@@ -166,7 +166,7 @@ export default class Humanoid extends Character {
             }
         }
     }
-    
+
     addRecipe(recipe: Recipe): boolean {
         if (this.recipes.map(r => r.id).indexOf(recipe.id) !== -1) {
             return false;

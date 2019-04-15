@@ -19,6 +19,5 @@ export default class Structure extends Entity {
         uniqueKey: '',
         coverType: 'full',
         isTransparent: false,
-    }
+    };
 }
-

@@ -74,23 +74,23 @@ export default class Character extends Entity {
                 effects.splice(i, 1);
             }
         });
-    
+
         this.effectsApplied.push(mod);
-        
+
         if (!mod.buffs) {
             return;
         }
 
         mod.buffs.forEach(buff => {
-            const buffedModId = this.effectsApplied.map(m => m.id).indexOf(buff.key); 
-            
+            const buffedModId = this.effectsApplied.map(m => m.id).indexOf(buff.key);
+
             if (buffedModId === -1) {
                 return;
             }
 
             const buffedMod = this.effectsApplied[buffedModId];
             const buffer = new Modifier(`buff:${buffedMod.id}:${mod.id}`);
-            
+
             for (let k in buffer) {
                 buffer[k] = buffedMod[k] * (buff.percentage / 100);
             }
@@ -107,7 +107,7 @@ export default class Character extends Entity {
         if (!item.use()) {
             return false;
         }
-        
+
         item.effects.forEach(mod => {
             this.addModifier(mod);
         });

@@ -10,7 +10,7 @@ export class ChessboardHumanoid extends Humanoid {
     ChessboardHumanoid(location: string) {
         this.location = location;
     }
-};
+}
 
 export class ChessboardCharacter extends Character {
     location: string = '';
@@ -18,14 +18,14 @@ export class ChessboardCharacter extends Character {
     ChessboardCharacter(location: string) {
         this.location = location;
     }
-};
+}
 
 interface ISceneWhen {
     item?: {
-        id: string,
-        exists: boolean,
+        id: string;
+        exists: boolean;
     };
-};
+}
 
 export interface ISceneBodySection {
     heading?: string;
@@ -37,7 +37,7 @@ export interface IScene {
     title: string;
     body: ISceneBodySection[];
     when?: ISceneWhen[];
-};
+}
 
 export interface ILocation {
     north?: string;
@@ -46,12 +46,12 @@ export interface ILocation {
     west?: string;
     scenes: IScene[];
     items: Item[];
-};
+}
 
 export interface IMap {
     id: string;
-    locations: { [key: string]: ILocation }
-};
+    locations: { [key: string]: ILocation };
+}
 
 class ChessboardGameState {
     player: ChessboardHumanoid;
@@ -60,7 +60,7 @@ class ChessboardGameState {
 
     initialise(location: string) {
         this.player = new ChessboardHumanoid(location);
-    };
+    }
 
     moveEntity(name: string, direction: Direction) {
         let id = '';
@@ -77,19 +77,19 @@ class ChessboardGameState {
             return;
         }
 
-        switch(name) {
+        switch (name) {
             case 'player':
                 this.player.location = location[direction];
                 break;
             default:
-                // TODO: Look up the entity
+            // TODO: Look up the entity
         }
     }
 
     loadScene() {
         const location = this.map.locations[this.player.location];
 
-        location.scenes.some((scene) => {
+        location.scenes.some(scene => {
             if (!scene.when) {
                 this.scene = scene;
                 return true;
