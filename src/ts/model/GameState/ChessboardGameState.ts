@@ -53,6 +53,14 @@ export interface IMap {
     locations: { [key: string]: ILocation };
 }
 
+const ViableCommands = {
+    go: 'go',
+    walk: 'go',
+    move: 'go',
+    take: 'take',
+    pick: 'take',
+};
+
 class ChessboardGameState {
     player: ChessboardHumanoid;
     scene: IScene;
@@ -113,6 +121,38 @@ class ChessboardGameState {
         const location = this.player.location;
 
         return this.map.locations[location].items;
+    }
+
+    sendAction(action: string) {
+        const actionArray = action.split(' ');
+        const leader = actionArray.splice(0, 1)[0];
+
+        const normalisedLeader = ViableCommands[leader];
+
+        if (!normalisedLeader) {
+            return false;
+        }
+
+        switch (normalisedLeader) {
+            case 'take':
+                const items = this.map.locations[this.player.location].items;
+                let itemIndex = -1;
+                if (
+                    !actionArray.some(word => {
+                        return items.some(item => {
+                            return item.noun === word;
+                        });
+                    })
+                ) {
+                    return;
+                }
+
+                this.player.inventory.addItem(this.map.locations[this.player.location].items.splice(itemIndex, 1)[0]);
+                break;
+            default:
+        }
+
+        this.loadScene();
     }
 }
 

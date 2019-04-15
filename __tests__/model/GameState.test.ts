@@ -1,6 +1,12 @@
 import ChessboardGameState from '../../src/ts/model/GameState/ChessboardGameState';
 import Item from '../../src/ts/model/abstract/Item';
 
+const fork = new Item('id-fork');
+const spoon = new Item('id-spoon');
+
+fork.noun = 'fork';
+spoon.noun = 'spoon';
+
 describe('Game state - chessboard movement', () => {
     const game = ChessboardGameState;
 
@@ -71,7 +77,7 @@ describe('Game state - chessboard movement', () => {
                         ],
                     },
                 ],
-                items: [new Item('id-spoon'), new Item('id-fork')],
+                items: [spoon, fork],
             },
         },
     };
@@ -147,10 +153,23 @@ describe('Game state - chessboard movement', () => {
         // I should get a scene that says I have the fork
         expect(game.scene.id).toBe('has-fork');
 
-        game.map.locations[game.player.location].items.pop();
+        let fork = game.map.locations[game.player.location].items.pop();
         game.loadScene();
 
         // I've just removed the fork so load the other scene
         expect(game.scene.id).toBe('no-fork');
+
+        // Put the fork back where we left it
+        game.map.locations[game.player.location].items.push(fork);
+    });
+
+    it('should all ow the player to pick up an item from the location', () => {
+        game.player.location = 'west';
+
+        game.sendAction('pick up fork');
+        game.loadScene();
+
+        expect(game.scene.id).toBe('no-fork');
+        expect(game.player.inventory.count()).toBe(1);
     });
 });

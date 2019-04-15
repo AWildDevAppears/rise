@@ -3,6 +3,7 @@ import Entity from './Entity';
 
 export default class Item extends Entity {
     name: string = '';
+    noun: string = ''; // shorthand name for lookups
     weight: number = 0;
     value: number = 0;
 
