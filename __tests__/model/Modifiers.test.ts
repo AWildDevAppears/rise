@@ -97,8 +97,6 @@ describe('Modifier tests', () => {
 
         character.addModifier(wet);
         character.addModifier(shock);
-        
-        console.log(character.effectsApplied);
 
         expect(character.calculatedStats.moveSpeed).toBe(7);
     });
