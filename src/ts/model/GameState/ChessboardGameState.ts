@@ -54,17 +54,37 @@ export interface IMap {
 }
 
 const ViableCommands = {
+    // Movement commands
     go: 'go',
     walk: 'go',
     move: 'go',
+    // Pick up commands
     take: 'take',
     pick: 'take',
+    get: 'take',
+    // Talk commands
+    talk: 'talk',
+    speak: 'talk',
+    ask: 'talk',
+    // Look commands
+    look: 'look',
+    inspect: 'look',
+    // loot commands
+    loot: 'loot',
+    open: 'loot',
+    // use command
+    use: 'use',
+    put: 'use',
 };
 
 class ChessboardGameState {
     player: ChessboardHumanoid;
     scene: IScene;
     map: IMap;
+
+    get currentLocation(): ILocation {
+        return this.map.locations[this.player.location];
+    }
 
     initialise(location: string) {
         this.player = new ChessboardHumanoid(location);
@@ -95,7 +115,7 @@ class ChessboardGameState {
     }
 
     loadScene() {
-        const location = this.map.locations[this.player.location];
+        const location = this.currentLocation;
 
         location.scenes.some(scene => {
             if (!scene.when) {
@@ -118,9 +138,7 @@ class ChessboardGameState {
     }
 
     listAllItems(): Item[] {
-        const location = this.player.location;
-
-        return this.map.locations[location].items;
+        return this.currentLocation.items;
     }
 
     sendAction(action: string) {
@@ -135,7 +153,8 @@ class ChessboardGameState {
 
         switch (normalisedLeader) {
             case 'take':
-                const items = this.map.locations[this.player.location].items;
+                const items = this.currentLocation.items;
+
                 let itemIndex = -1;
                 if (
                     !actionArray.some(word => {
@@ -147,7 +166,7 @@ class ChessboardGameState {
                     return;
                 }
 
-                this.player.inventory.addItem(this.map.locations[this.player.location].items.splice(itemIndex, 1)[0]);
+                this.player.inventory.addItem(this.currentLocation.items.splice(itemIndex, 1)[0]);
                 break;
             case 'go':
                 let direction = '';
@@ -164,6 +183,14 @@ class ChessboardGameState {
                 }
 
                 this.moveEntity('player', direction as Direction);
+            case 'use':
+                break;
+            case 'talk':
+                break;
+            case 'loot':
+                break;
+            case 'look':
+                break;
             default:
         }
 
