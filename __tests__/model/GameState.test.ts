@@ -44,8 +44,66 @@ describe('Game state - chessboard movement', () => {
             },
             east: {
                 west: 'middle',
-                scenes: [],
-                items: [],
+                scenes: [
+                    {
+                        id: 'fork-and-spoon',
+                        title: 'Fork and spoon',
+                        body: [{}],
+                        when: [
+                            {
+                                item: {
+                                    id: 'id-fork',
+                                    exists: true,
+                                },
+                            },
+                            {
+                                item: {
+                                    id: 'id-spoon',
+                                    exists: true,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        id: 'just-fork',
+                        title: 'Just fork',
+                        body: [{}],
+                        when: [
+                            {
+                                item: {
+                                    id: 'id-fork',
+                                    exists: true,
+                                },
+                            },
+                            {
+                                item: {
+                                    id: 'id-spoon',
+                                    exists: false,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        id: 'nothing',
+                        title: 'Nothing',
+                        body: [{}],
+                        when: [
+                            {
+                                item: {
+                                    id: 'id-fork',
+                                    exists: false,
+                                },
+                            },
+                            {
+                                item: {
+                                    id: 'id-spoon',
+                                    exists: false,
+                                },
+                            },
+                        ],
+                    },
+                ],
+                items: [spoon, fork],
             },
             west: {
                 east: 'middle',
@@ -178,5 +236,16 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('move west');
 
         expect(game.player.location).toBe('west');
+    });
+
+    it('it should only load a scene only if all of the requirements match', () => {
+        game.player.location = 'east';
+        game.loadScene();
+        expect(game.scene.id).toBe('fork-and-spoon');
+
+        game.sendAction('take spoon');
+        expect(game.scene.id).toBe('just-fork');
+        game.sendAction('take fork');
+        expect(game.scene.id).toBe('nothing');
     });
 });

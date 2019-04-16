@@ -82,7 +82,7 @@ class ChessboardGameState {
     scene: IScene;
     map: IMap;
 
-    get currentLocation(): ILocation {
+    currentLocation(): ILocation {
         return this.map.locations[this.player.location];
     }
 
@@ -115,30 +115,39 @@ class ChessboardGameState {
     }
 
     loadScene() {
-        const location = this.currentLocation;
-
-        location.scenes.some(scene => {
+        this.currentLocation().scenes.some(scene => {
             if (!scene.when) {
                 this.scene = scene;
                 return true;
             }
 
-            for (let i = 0; i < scene.when.length; i++) {
-                const when = scene.when[i];
+            // Weed out anything that doesn't match our requirements
+            let canUseScene = true;
 
+            console.log(this.currentLocation().items.map(item => item.id));
+            scene.when.forEach(when => {
                 if (
-                    when.item &&
-                    (location.items.map(item => item.id).indexOf(when.item.id) !== -1) === when.item.exists
+                    (this.currentLocation()
+                        .items.map(item => item.id)
+                        .indexOf(when.item.id) !==
+                        -1) !==
+                        when.item.exists
                 ) {
-                    this.scene = scene;
-                    return true;
+                    canUseScene = false;
                 }
+            });
+
+            console.log(scene.id, canUseScene);
+
+            if (canUseScene) {
+                this.scene = scene;
+                return true;
             }
         });
     }
 
     listAllItems(): Item[] {
-        return this.currentLocation.items;
+        return this.currentLocation().items;
     }
 
     sendAction(action: string) {
@@ -153,7 +162,7 @@ class ChessboardGameState {
 
         switch (normalisedLeader) {
             case 'take':
-                const items = this.currentLocation.items;
+                const items = this.currentLocation().items;
 
                 let itemIndex = -1;
                 if (
@@ -166,7 +175,7 @@ class ChessboardGameState {
                     return;
                 }
 
-                this.player.inventory.addItem(this.currentLocation.items.splice(itemIndex, 1)[0]);
+                this.player.inventory.addItem(this.currentLocation().items.splice(itemIndex, 1)[0]);
                 break;
             case 'go':
                 let direction = '';
