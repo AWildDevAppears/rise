@@ -157,8 +157,9 @@ class ChessboardGameState {
     logAction(message: ILoggable) {
         if (message.state === 'success') {
             this.log.push(message);
-            this.lastResponse = message.message;
         }
+
+        this.lastResponse = message.message;
     }
 
     listAllItems(): Item[] {
@@ -172,6 +173,12 @@ class ChessboardGameState {
         const normalisedLeader = ViableCommands[leader];
 
         if (!normalisedLeader) {
+            this.logAction({
+                state: 'failure',
+                volatile: true,
+                ref: `fail:not-recognised:${leader}`,
+                message: "I don't know how to do that",
+            });
             return false;
         }
 
@@ -192,6 +199,12 @@ class ChessboardGameState {
                         });
                     })
                 ) {
+                    this.logAction({
+                        state: 'failure',
+                        volatile: true,
+                        ref: `fail:take:not-item`,
+                        message: "I don't know how to do that",
+                    });
                     return;
                 }
 

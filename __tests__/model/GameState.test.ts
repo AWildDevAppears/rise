@@ -267,4 +267,17 @@ describe('Game state - chessboard movement', () => {
         expect(game.log[0].message).toBe('I moved to the east');
         expect(game.log[1].message).toBe('I moved to the west');
     });
+
+    it('should be able to log errors', () => {
+        game.player.location = 'middle';
+        game.log = [];
+
+        game.sendAction('consume copious amounts of coffee');
+        expect(game.lastResponse).toBe("I don't know how to do that");
+
+        game.sendAction('go north');
+
+        game.sendAction('take the bus home');
+        expect(game.lastResponse).toBe("I don't know how to do that");
+    });
 });
