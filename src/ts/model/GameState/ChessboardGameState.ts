@@ -137,8 +137,6 @@ class ChessboardGameState {
                 }
             });
 
-            console.log(scene.id, canUseScene);
-
             if (canUseScene) {
                 this.scene = scene;
                 return true;
@@ -167,8 +165,11 @@ class ChessboardGameState {
                 let itemIndex = -1;
                 if (
                     !actionArray.some(word => {
-                        return items.some(item => {
-                            return item.noun === word;
+                        return items.some((item, idx) => {
+                            if (item.noun === word) {
+                                itemIndex = idx;
+                                return true;
+                            };
                         });
                     })
                 ) {
