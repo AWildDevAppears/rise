@@ -53,6 +53,14 @@ export interface IMap {
     locations: { [key: string]: ILocation };
 }
 
+export interface ILoggable {
+    title?: string;
+    message?: string;
+    state: string;
+    volatile: boolean;
+    ref: string;
+}
+
 const ViableCommands = {
     // Movement commands
     go: 'go',
@@ -81,6 +89,9 @@ class ChessboardGameState {
     player: ChessboardHumanoid;
     scene: IScene;
     map: IMap;
+
+    lastResponse: string;
+    log: ILoggable[] = [];
 
     currentLocation(): ILocation {
         return this.map.locations[this.player.location];
@@ -124,14 +135,13 @@ class ChessboardGameState {
             // Weed out anything that doesn't match our requirements
             let canUseScene = true;
 
-            console.log(this.currentLocation().items.map(item => item.id));
             scene.when.forEach(when => {
                 if (
                     (this.currentLocation()
                         .items.map(item => item.id)
                         .indexOf(when.item.id) !==
                         -1) !==
-                        when.item.exists
+                    when.item.exists
                 ) {
                     canUseScene = false;
                 }
@@ -142,6 +152,13 @@ class ChessboardGameState {
                 return true;
             }
         });
+    }
+
+    logAction(message: ILoggable) {
+        if (message.state === 'success') {
+            this.log.push(message);
+            this.lastResponse = message.message;
+        }
     }
 
     listAllItems(): Item[] {
@@ -163,19 +180,27 @@ class ChessboardGameState {
                 const items = this.currentLocation().items;
 
                 let itemIndex = -1;
+                let noun = '';
                 if (
                     !actionArray.some(word => {
                         return items.some((item, idx) => {
                             if (item.noun === word) {
                                 itemIndex = idx;
+                                noun = item.noun;
                                 return true;
-                            };
+                            }
                         });
                     })
                 ) {
                     return;
                 }
 
+                this.logAction({
+                    state: 'success',
+                    volatile: false,
+                    ref: `take:${this.player.location}:${noun}`,
+                    message: `I took the ${noun}`,
+                });
                 this.player.inventory.addItem(this.currentLocation().items.splice(itemIndex, 1)[0]);
                 break;
             case 'go':
@@ -192,6 +217,12 @@ class ChessboardGameState {
                     return;
                 }
 
+                this.logAction({
+                    state: 'success',
+                    volatile: true,
+                    ref: `go:${this.player.location}:${direction}`,
+                    message: `I moved to the ${direction}`,
+                });
                 this.moveEntity('player', direction as Direction);
             case 'use':
                 break;

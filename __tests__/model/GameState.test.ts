@@ -238,7 +238,7 @@ describe('Game state - chessboard movement', () => {
         expect(game.player.location).toBe('west');
     });
 
-    it('it should only load a scene only if all of the requirements match', () => {
+    it('should only load a scene only if all of the requirements match', () => {
         game.player.location = 'east';
         game.loadScene();
         expect(game.scene.id).toBe('fork-and-spoon');
@@ -247,5 +247,24 @@ describe('Game state - chessboard movement', () => {
         expect(game.scene.id).toBe('just-fork');
         game.sendAction('take fork');
         expect(game.scene.id).toBe('nothing');
+    });
+
+    it('should keep track of the last response the app returned from a command', () => {
+        game.player.location = 'west';
+
+        game.sendAction('take spoon');
+
+        expect(game.lastResponse).toBe('I took the spoon');
+    });
+
+    it('should keep a log of all of the successfull actions in a scene', () => {
+        game.player.location = 'middle';
+        game.log = [];
+
+        game.sendAction('move east');
+        game.sendAction('move west');
+
+        expect(game.log[0].message).toBe('I moved to the east');
+        expect(game.log[1].message).toBe('I moved to the west');
     });
 });
