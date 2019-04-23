@@ -332,6 +332,7 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.loadScene();
+        // expect(game.scene.id).toBe('placey-here');
     });
 
     it('should let me talk to a person in a scene', () => {
@@ -339,6 +340,7 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.sendAction('talk to Placey');
+        // expect(game.lastResponse).toBe('what should I ask them about?')
     });
 
     it("should error if I try to talk to someone that doesn't exist", () => {
@@ -371,6 +373,7 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('take key');
 
         game.sendAction('drop key');
+        // expect(game.currentLocation().items[0].id).toBe('id-key');
     });
 
     it('should let me use an item', () => {
@@ -403,7 +406,7 @@ describe('Game state - chessboard movement', () => {
 
         game.sendAction('use key with lockbox');
 
-        // expect(game.scene.id)
+        // expect(game.scene.id).toBe('lockbox-open');
     });
 
     it('should allow a user to look at a location', () => {
@@ -446,7 +449,15 @@ describe('Game state - chessboard movement', () => {
         // expect(game.lastResponse).toBe('I don\'t think they want to talk about that');
     });
 
-    it('should allow the app to highlight keywords in scenes', () => {});
+    it('should allow the app to highlight keywords in scenes', () => {
+        //
+    });
 
-    it('should allow the app to highlight keywords in conversations', () => {});
+    it('should allow the app to highlight keywords in conversations', () => {
+        //
+    });
+
+    it('should check existing actions when running a new action to remove any that are unneeded', () => {
+        // If I pick up a spoon, then put it back down again, it should be like I never took the spoon in the first place.
+    });
 });
