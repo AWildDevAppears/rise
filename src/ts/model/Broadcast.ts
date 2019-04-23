@@ -1,6 +1,6 @@
 export const BROADCASTS = {
     OPEN_CONTAINER: 'OPEN_CONTAINER',
-}
+};
 
 export default class Broadcast {
     type: string = '';
