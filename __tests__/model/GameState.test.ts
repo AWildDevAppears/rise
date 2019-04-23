@@ -1,8 +1,16 @@
 import ChessboardGameState from '../../src/ts/model/GameState/ChessboardGameState';
+
 import Item from '../../src/ts/model/abstract/Item';
+import Humanoid from '../../src/ts/model/Characters/Humanoid';
 
 const fork = new Item('id-fork');
 const spoon = new Item('id-spoon');
+
+// Characters
+const placey = new Humanoid();
+
+placey.name = 'Placey';
+placey.id = 'id-placey';
 
 fork.noun = 'fork';
 spoon.noun = 'spoon';
@@ -31,16 +39,46 @@ describe('Game state - chessboard movement', () => {
                     },
                 ],
                 items: [],
+                characters: [],
             },
             north: {
                 south: 'middle',
-                scenes: [],
+                scenes: [
+                    {
+                        id: 'placey-here',
+                        title: 'Placey',
+                        body: [{}],
+                        when: [
+                            {
+                                character: {
+                                    id: 'id-placey',
+                                    exists: true,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        id: 'placey-gone',
+                        title: 'North',
+                        body: [],
+                        when: [
+                            {
+                                character: {
+                                    id: 'id-placey',
+                                    exists: false,
+                                },
+                            },
+                        ],
+                    },
+                ],
                 items: [],
+                characters: [placey],
             },
             south: {
                 north: 'middle',
                 scenes: [],
                 items: [],
+                characters: [],
             },
             east: {
                 west: 'middle',
@@ -104,6 +142,7 @@ describe('Game state - chessboard movement', () => {
                     },
                 ],
                 items: [spoon, fork],
+                characters: [],
             },
             west: {
                 east: 'middle',
@@ -136,6 +175,7 @@ describe('Game state - chessboard movement', () => {
                     },
                 ],
                 items: [spoon, fork],
+                characters: [],
             },
         },
     };
@@ -284,7 +324,7 @@ describe('Game state - chessboard movement', () => {
     it('should allow a person to exist in a location', () => {
         game.player.location = 'north';
         game.log = [];
-        // TODO:
+        expect(game.currentLocation().characters[0].name).toBe(placey.name);
     });
 
     it('should acknowledge people in a location when loading a scene', () => {
@@ -301,11 +341,12 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('talk to Placey');
     });
 
-    it('should error if I try to talk to someone that doesn\'t exist', () => {
+    it("should error if I try to talk to someone that doesn't exist", () => {
         game.player.location = 'north';
         game.log = [];
 
         game.sendAction('talk to no-one');
+        expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
     it('should let me interact with a container', () => {
@@ -315,11 +356,12 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('open wardrobe');
     });
 
-    it('should not let me open a container that doesn\'t exist', () => {
+    it("should not let me open a container that doesn't exist", () => {
         game.player.location = 'south';
         game.log = [];
 
         game.sendAction('open a can of whoopass');
+        expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
     it('should let a user drop an item', () => {
@@ -352,6 +394,7 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.sendAction('use key with teapot');
+        // expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
     it('should allow scenes to acknowledge the usage of an item', () => {
@@ -362,7 +405,6 @@ describe('Game state - chessboard movement', () => {
 
         // expect(game.scene.id)
     });
-
 
     it('should allow a user to look at a location', () => {
         game.player.location = 'middle';
@@ -383,10 +425,11 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('look at Placey');
     });
 
-    it('should error if I try to look at something that doesn\'t exist', () => {
+    it("should error if I try to look at something that doesn't exist", () => {
         game.player.location = 'middle';
 
         game.sendAction('look at my life and reconsider my life choices');
+        // expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
     it('should allow a user to ask a character about something', () => {
@@ -395,9 +438,15 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('talk to Placey about complexion');
     });
 
-    it('should allow the app to highlight keywords in scenes', () => {
+    it('should error if a user tries to talk to a character about something they have nothing to say about', () => {
+        game.player.location = 'north';
+
+        game.sendAction('talk to Placey about squirrels and their plans of world domination');
+
+        // expect(game.lastResponse).toBe('I don\'t think they want to talk about that');
     });
 
-    it('should allow the app to highlight keywords in conversations', () => {
-    });
+    it('should allow the app to highlight keywords in scenes', () => {});
+
+    it('should allow the app to highlight keywords in conversations', () => {});
 });

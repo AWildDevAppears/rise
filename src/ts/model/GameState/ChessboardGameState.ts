@@ -25,6 +25,10 @@ interface ISceneWhen {
         id: string;
         exists: boolean;
     };
+    character?: {
+        id: string;
+        exists: boolean;
+    };
 }
 
 export interface ISceneBodySection {
@@ -46,6 +50,7 @@ export interface ILocation {
     west?: string;
     scenes: IScene[];
     items: Item[];
+    characters: Character[];
 }
 
 export interface IMap {
