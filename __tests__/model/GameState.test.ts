@@ -280,4 +280,124 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('take the bus home');
         expect(game.lastResponse).toBe("I don't know how to do that");
     });
+
+    it('should allow a person to exist in a location', () => {
+        game.player.location = 'north';
+        game.log = [];
+        // TODO:
+    });
+
+    it('should acknowledge people in a location when loading a scene', () => {
+        game.player.location = 'north';
+        game.log = [];
+
+        game.loadScene();
+    });
+
+    it('should let me talk to a person in a scene', () => {
+        game.player.location = 'north';
+        game.log = [];
+
+        game.sendAction('talk to Placey');
+    });
+
+    it('should error if I try to talk to someone that doesn\'t exist', () => {
+        game.player.location = 'north';
+        game.log = [];
+
+        game.sendAction('talk to no-one');
+    });
+
+    it('should let me interact with a container', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('open wardrobe');
+    });
+
+    it('should not let me open a container that doesn\'t exist', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('open a can of whoopass');
+    });
+
+    it('should let a user drop an item', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('take key');
+
+        game.sendAction('drop key');
+    });
+
+    it('should let me use an item', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('take key');
+
+        game.sendAction('use key');
+    });
+
+    it('should remove the item if I use it successfully', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('use key with lockbox');
+    });
+
+    it('should not remove the item if I use it unsuccessfully', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('use key with teapot');
+    });
+
+    it('should allow scenes to acknowledge the usage of an item', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('use key with lockbox');
+
+        // expect(game.scene.id)
+    });
+
+
+    it('should allow a user to look at a location', () => {
+        game.player.location = 'middle';
+        game.log = [];
+
+        game.sendAction('look');
+    });
+
+    it('should allow a user to look at an object', () => {
+        game.player.location = 'west';
+
+        game.sendAction('look at spoon');
+    });
+
+    it('should let me look at a person', () => {
+        game.player.location = 'north';
+
+        game.sendAction('look at Placey');
+    });
+
+    it('should error if I try to look at something that doesn\'t exist', () => {
+        game.player.location = 'middle';
+
+        game.sendAction('look at my life and reconsider my life choices');
+    });
+
+    it('should allow a user to ask a character about something', () => {
+        game.player.location = 'north';
+
+        game.sendAction('talk to Placey about complexion');
+    });
+
+    it('should allow the app to highlight keywords in scenes', () => {
+    });
+
+    it('should allow the app to highlight keywords in conversations', () => {
+    });
 });
