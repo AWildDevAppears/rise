@@ -142,11 +142,23 @@ class ChessboardGameState {
 
             scene.when.forEach(when => {
                 if (
+                    when.item &&
                     (this.currentLocation()
                         .items.map(item => item.id)
                         .indexOf(when.item.id) !==
                         -1) !==
-                    when.item.exists
+                        when.item.exists
+                ) {
+                    canUseScene = false;
+                }
+
+                if (
+                    when.character &&
+                    (this.currentLocation()
+                        .characters.map(character => character.id)
+                        .indexOf(when.character.id) !==
+                        -1) !==
+                        when.character.exists
                 ) {
                     canUseScene = false;
                 }
@@ -245,8 +257,45 @@ class ChessboardGameState {
             case 'use':
                 break;
             case 'talk':
+                const characters = this.currentLocation().characters;
+
+                let personIndex = 0;
+                let name = '';
+                if (
+                    !actionArray.some(word => {
+                        return characters.some((character, idx) => {
+                            if (character.name.toLowerCase() === word.toLowerCase()) {
+                                itemIndex = idx;
+                                name = character.name;
+                                return true;
+                            }
+                        });
+                    })
+                ) {
+                    this.logAction({
+                        state: 'failure',
+                        volatile: true,
+                        ref: `fail:talk:not-person`,
+                        message: 'I don\'t know who you are trying to talk to',
+                    });
+                    return;
+                }
+
+                this.logAction({
+                    state: 'success',
+                    volatile: false,
+                    ref: `talk:${this.player.location}:${name}`,
+                    message: `What should I ask them about?`,
+                });
+
                 break;
             case 'loot':
+                this.logAction({
+                    state: 'failure',
+                    volatile: false,
+                    ref: `loot:${this.player.location}:not-container`,
+                    message: `I don\'t know how to do that`,
+                });
                 break;
             case 'look':
                 break;

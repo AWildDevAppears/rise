@@ -332,7 +332,14 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.loadScene();
-        // expect(game.scene.id).toBe('placey-here');
+        expect(game.scene.id).toBe('placey-here');
+
+        game.currentLocation().characters = [];
+
+        game.loadScene();
+        expect(game.scene.id).toBe('placey-gone');
+
+        game.currentLocation().characters.push(placey);
     });
 
     it('should let me talk to a person in a scene', () => {
@@ -340,7 +347,7 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.sendAction('talk to Placey');
-        // expect(game.lastResponse).toBe('what should I ask them about?')
+        expect(game.lastResponse).toBe('What should I ask them about?')
     });
 
     it("should error if I try to talk to someone that doesn't exist", () => {
@@ -348,7 +355,7 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.sendAction('talk to no-one');
-        expect(game.lastResponse).toBe("I don't know how to do that");
+        expect(game.lastResponse).toBe("I don't know who you are trying to talk to");
     });
 
     it('should let me interact with a container', () => {
