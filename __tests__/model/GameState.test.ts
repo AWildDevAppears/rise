@@ -347,7 +347,7 @@ describe('Game state - chessboard movement', () => {
         game.log = [];
 
         game.sendAction('talk to Placey');
-        expect(game.lastResponse).toBe('What should I ask them about?')
+        expect(game.lastResponse).toBe('What should I ask them about?');
     });
 
     it("should error if I try to talk to someone that doesn't exist", () => {

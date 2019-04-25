@@ -276,7 +276,7 @@ class ChessboardGameState {
                         state: 'failure',
                         volatile: true,
                         ref: `fail:talk:not-person`,
-                        message: 'I don\'t know who you are trying to talk to',
+                        message: "I don't know who you are trying to talk to",
                     });
                     return;
                 }
