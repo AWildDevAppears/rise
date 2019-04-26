@@ -186,7 +186,6 @@ class ChessboardGameState {
     sendAction(action: string) {
         const actionArray = action.toLowerCase().split(' ');
         const leader = actionArray.splice(0, 1)[0];
-
         const normalisedLeader = ViableCommands[leader];
 
         if (!normalisedLeader) {
@@ -255,6 +254,13 @@ class ChessboardGameState {
                 });
                 this.moveEntity('player', direction as Direction);
             case 'use':
+                this.logAction({
+                    state: 'failure',
+                    volatile: true,
+                    ref: `fail:use:not-item`,
+                    message: "I don't know how to do that",
+                });
+                return;
                 break;
             case 'talk':
                 const characters = this.currentLocation().characters;
@@ -298,7 +304,57 @@ class ChessboardGameState {
                 });
                 break;
             case 'look':
-                break;
+                if (actionArray.length === 0) {
+                    // FIXME: Implement this correctly
+                    this.lastResponse = '';
+                    return;
+                }
+
+                const chars = this.currentLocation().characters;
+                const itemList = this.currentLocation().items;
+
+                if (
+                    !actionArray.some(word => {
+                        const w = word.toLowerCase();
+
+                        let found = itemList.some(item => {
+                            let noun = item.noun.toLowerCase();
+                            if (noun === word) {
+                                this.logAction({
+                                    state: 'success',
+                                    volatile: true,
+                                    ref: `look"${this.player.location}:${w}`,
+                                    message: item.description,
+                                });
+                                return true;
+                            }
+                        });
+
+                        if (found) {
+                            return true;
+                        }
+
+                        return chars.some(character => {
+                            const name = character.name.toLowerCase();
+                            if (name === w) {
+                                this.logAction({
+                                    state: 'success',
+                                    volatile: true,
+                                    ref: `look:${this.player.location}:${w}`,
+                                    message: character.description,
+                                });
+                                return true;
+                            }
+                        });
+                    })
+                ) {
+                    this.logAction({
+                        state: 'failure',
+                        volatile: false,
+                        ref: `look:${this.player.location}:no-exist`,
+                        message: `I don\'t know how to do that`,
+                    });
+                }
             default:
         }
 

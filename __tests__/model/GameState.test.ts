@@ -11,9 +11,12 @@ const placey = new Humanoid();
 
 placey.name = 'Placey';
 placey.id = 'id-placey';
+placey.description =
+    "The creature has black oily skin and looks slippery to the touch. two lifeless pale eyes sit in it's sockets";
 
 fork.noun = 'fork';
 spoon.noun = 'spoon';
+spoon.description = 'A brushed metal spoon with an inticate pattern etched into the handle';
 
 describe('Game state - chessboard movement', () => {
     const game = ChessboardGameState;
@@ -358,29 +361,52 @@ describe('Game state - chessboard movement', () => {
         expect(game.lastResponse).toBe("I don't know who you are trying to talk to");
     });
 
-    it('should let me interact with a container', () => {
-        game.player.location = 'south';
+    it('should allow a user to look at a location', () => {
+        game.player.location = 'middle';
         game.log = [];
 
-        game.sendAction('open wardrobe');
+        // game.sendAction('look');
+        // TODO:
     });
 
-    it("should not let me open a container that doesn't exist", () => {
-        game.player.location = 'south';
-        game.log = [];
+    it('should allow a user to look at an object', () => {
+        game.player.location = 'west';
 
-        game.sendAction('open a can of whoopass');
+        // Endure we still have the correct items in the scene.
+        game.currentLocation().items = [spoon, fork];
+
+        game.sendAction('look at spoon');
+
+        expect(game.lastResponse).toBe(spoon.description);
+    });
+
+    it('should let me look at a person', () => {
+        game.player.location = 'north';
+
+        game.sendAction('look at Placey');
+
+        expect(game.lastResponse).toBe(placey.description);
+    });
+
+    it("should error if I try to look at something that doesn't exist", () => {
+        game.player.location = 'middle';
+
+        game.sendAction('look at my life and reconsider my life choices');
         expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
-    it('should let a user drop an item', () => {
-        game.player.location = 'south';
-        game.log = [];
+    it('should allow a user to ask a character about something', () => {
+        game.player.location = 'north';
 
-        game.sendAction('take key');
+        game.sendAction('talk to Placey about complexion');
+    });
 
-        game.sendAction('drop key');
-        // expect(game.currentLocation().items[0].id).toBe('id-key');
+    it('should error if a user tries to talk to a character about something they have nothing to say about', () => {
+        game.player.location = 'north';
+
+        game.sendAction('talk to Placey about squirrels and their plans of world domination');
+
+        // expect(game.lastResponse).toBe('I don\'t think they want to talk about that');
     });
 
     it('should let me use an item', () => {
@@ -416,46 +442,6 @@ describe('Game state - chessboard movement', () => {
         // expect(game.scene.id).toBe('lockbox-open');
     });
 
-    it('should allow a user to look at a location', () => {
-        game.player.location = 'middle';
-        game.log = [];
-
-        game.sendAction('look');
-    });
-
-    it('should allow a user to look at an object', () => {
-        game.player.location = 'west';
-
-        game.sendAction('look at spoon');
-    });
-
-    it('should let me look at a person', () => {
-        game.player.location = 'north';
-
-        game.sendAction('look at Placey');
-    });
-
-    it("should error if I try to look at something that doesn't exist", () => {
-        game.player.location = 'middle';
-
-        game.sendAction('look at my life and reconsider my life choices');
-        // expect(game.lastResponse).toBe("I don't know how to do that");
-    });
-
-    it('should allow a user to ask a character about something', () => {
-        game.player.location = 'north';
-
-        game.sendAction('talk to Placey about complexion');
-    });
-
-    it('should error if a user tries to talk to a character about something they have nothing to say about', () => {
-        game.player.location = 'north';
-
-        game.sendAction('talk to Placey about squirrels and their plans of world domination');
-
-        // expect(game.lastResponse).toBe('I don\'t think they want to talk about that');
-    });
-
     it('should allow the app to highlight keywords in scenes', () => {
         //
     });
@@ -466,5 +452,30 @@ describe('Game state - chessboard movement', () => {
 
     it('should check existing actions when running a new action to remove any that are unneeded', () => {
         // If I pick up a spoon, then put it back down again, it should be like I never took the spoon in the first place.
+    });
+
+    it('should let me interact with a container', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('open wardrobe');
+    });
+
+    it("should not let me open a container that doesn't exist", () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('open a can of whoopass');
+        expect(game.lastResponse).toBe("I don't know how to do that");
+    });
+
+    it('should let a user drop an item', () => {
+        game.player.location = 'south';
+        game.log = [];
+
+        game.sendAction('take key');
+
+        game.sendAction('drop key');
+        // expect(game.currentLocation().items[0].id).toBe('id-key');
     });
 });

@@ -6,6 +6,7 @@ export default class Item extends Entity {
     noun: string = ''; // shorthand name for lookups
     weight: number = 0;
     value: number = 0;
+    description: string = '';
 
     effects: Modifier[] = [];
 
