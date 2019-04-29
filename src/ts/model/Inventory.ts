@@ -133,4 +133,15 @@ export default class Inventory {
 
         return item.effects.length > 0 ? item.effects : undefined;
     }
+
+    getItemMatchingNoun(noun: string): Item {
+        let i;
+        this.itemList.some(item => {
+            if (item.noun === noun) {
+                i = item;
+                return true;
+            }
+        });
+        return i;
+    }
 }

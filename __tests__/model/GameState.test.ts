@@ -5,6 +5,7 @@ import Humanoid from '../../src/ts/model/Characters/Humanoid';
 
 const fork = new Item('id-fork');
 const spoon = new Item('id-spoon');
+const key = new Item('id-key');
 
 // Characters
 const placey = new Humanoid();
@@ -17,6 +18,8 @@ placey.description =
 fork.noun = 'fork';
 spoon.noun = 'spoon';
 spoon.description = 'A brushed metal spoon with an inticate pattern etched into the handle';
+
+key.noun = 'key';
 
 describe('Game state - chessboard movement', () => {
     const game = ChessboardGameState;
@@ -80,7 +83,7 @@ describe('Game state - chessboard movement', () => {
             south: {
                 north: 'middle',
                 scenes: [],
-                items: [],
+                items: [key],
                 characters: [],
             },
             east: {
@@ -395,18 +398,14 @@ describe('Game state - chessboard movement', () => {
         expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
-    it('should allow a user to ask a character about something', () => {
-        game.player.location = 'north';
+    it('should let a user drop an item', () => {
+        game.player.location = 'south';
+        game.log = [];
 
-        game.sendAction('talk to Placey about complexion');
-    });
+        game.sendAction('take key');
 
-    it('should error if a user tries to talk to a character about something they have nothing to say about', () => {
-        game.player.location = 'north';
-
-        game.sendAction('talk to Placey about squirrels and their plans of world domination');
-
-        // expect(game.lastResponse).toBe('I don\'t think they want to talk about that');
+        game.sendAction('drop key');
+        expect(game.currentLocation().items[0].id).toBe('id-key');
     });
 
     it('should let me use an item', () => {
@@ -469,13 +468,17 @@ describe('Game state - chessboard movement', () => {
         expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
-    it('should let a user drop an item', () => {
-        game.player.location = 'south';
-        game.log = [];
+    it('should allow a user to ask a character about something', () => {
+        game.player.location = 'north';
 
-        game.sendAction('take key');
+        game.sendAction('talk to Placey about complexion');
+    });
 
-        game.sendAction('drop key');
-        // expect(game.currentLocation().items[0].id).toBe('id-key');
+    it('should error if a user tries to talk to a character about something they have nothing to say about', () => {
+        game.player.location = 'north';
+
+        game.sendAction('talk to Placey about squirrels and their plans of world domination');
+
+        // expect(game.lastResponse).toBe('I don\'t think they want to talk about that');
     });
 });

@@ -88,6 +88,10 @@ const ViableCommands = {
     // use command
     use: 'use',
     put: 'use',
+    // drop commands
+    drop: 'drop',
+    discard: 'drop',
+    throw: 'drop',
 };
 
 class ChessboardGameState {
@@ -355,6 +359,25 @@ class ChessboardGameState {
                         message: `I don\'t know how to do that`,
                     });
                 }
+                break;
+            case 'drop':
+                actionArray.some(word => {
+                    const item = this.player.inventory.getItemMatchingNoun(word);
+
+                    if (item) {
+                        this.player.inventory.removeItem(item.id);
+                        this.logAction({
+                            state: 'success',
+                            volatile: true,
+                            ref: `drop:${this.player.location}:${item.id}`,
+                            message: `I dropped the ${item.noun}`,
+                        });
+
+                        this.currentLocation().items.push(item);
+                        return true;
+                    }
+                });
+                break;
             default:
         }
 
