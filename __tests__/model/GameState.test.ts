@@ -420,7 +420,8 @@ describe('Game state - chessboard movement', () => {
 
         expect(game.lastResponse).toBe('I don\'t understand what you want me to drop')
     });
-    it('should let me use an item', () => {
+
+    xit('should let me use an item', () => {
         game.player.location = 'south';
         game.log = [];
 
@@ -429,14 +430,14 @@ describe('Game state - chessboard movement', () => {
         game.sendAction('use key');
     });
 
-    it('should remove the item if I use it successfully', () => {
+    xit('should remove the item if I use it successfully', () => {
         game.player.location = 'south';
         game.log = [];
 
         game.sendAction('use key with lockbox');
     });
 
-    it('should not remove the item if I use it unsuccessfully', () => {
+    xit('should not remove the item if I use it unsuccessfully', () => {
         game.player.location = 'south';
         game.log = [];
 
@@ -444,7 +445,7 @@ describe('Game state - chessboard movement', () => {
         // expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
-    it('should allow scenes to acknowledge the usage of an item', () => {
+    xit('should allow scenes to acknowledge the usage of an item', () => {
         game.player.location = 'south';
         game.log = [];
 
@@ -453,26 +454,26 @@ describe('Game state - chessboard movement', () => {
         // expect(game.scene.id).toBe('lockbox-open');
     });
 
-    it('should allow the app to highlight keywords in scenes', () => {
+    xit('should allow the app to highlight keywords in scenes', () => {
         //
     });
 
-    it('should allow the app to highlight keywords in conversations', () => {
+    xit('should allow the app to highlight keywords in conversations', () => {
         //
     });
 
-    it('should check existing actions when running a new action to remove any that are unneeded', () => {
+    xit('should check existing actions when running a new action to remove any that are unneeded', () => {
         // If I pick up a spoon, then put it back down again, it should be like I never took the spoon in the first place.
     });
 
-    it('should let me interact with a container', () => {
+    xit('should let me interact with a container', () => {
         game.player.location = 'south';
         game.log = [];
 
         game.sendAction('open wardrobe');
     });
 
-    it("should not let me open a container that doesn't exist", () => {
+    xit("should not let me open a container that doesn't exist", () => {
         game.player.location = 'south';
         game.log = [];
 
@@ -480,13 +481,13 @@ describe('Game state - chessboard movement', () => {
         expect(game.lastResponse).toBe("I don't know how to do that");
     });
 
-    it('should allow a user to ask a character about something', () => {
+    xit('should allow a user to ask a character about something', () => {
         game.player.location = 'north';
 
         game.sendAction('talk to Placey about complexion');
     });
 
-    it('should error if a user tries to talk to a character about something they have nothing to say about', () => {
+    xit('should error if a user tries to talk to a character about something they have nothing to say about', () => {
         game.player.location = 'north';
 
         game.sendAction('talk to Placey about squirrels and their plans of world domination');
