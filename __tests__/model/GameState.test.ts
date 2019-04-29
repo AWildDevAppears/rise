@@ -408,6 +408,11 @@ describe('Game state - chessboard movement', () => {
         expect(game.currentLocation().items[0].id).toBe('id-key');
     });
 
+    it('should not let me drop something I don\'t have', () => {
+        game.sendAction('drop something');
+
+        expect(game.lastResponse).toBe('I don\'t understand what you want me to drop')
+    });
     it('should let me use an item', () => {
         game.player.location = 'south';
         game.log = [];

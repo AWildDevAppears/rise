@@ -354,21 +354,21 @@ class ChessboardGameState {
                 ) {
                     this.logAction({
                         state: 'failure',
-                        volatile: false,
+                        volatile: true,
                         ref: `look:${this.player.location}:no-exist`,
                         message: `I don\'t know how to do that`,
                     });
                 }
                 break;
             case 'drop':
-                actionArray.some(word => {
+                if (!actionArray.some(word => {
                     const item = this.player.inventory.getItemMatchingNoun(word);
 
                     if (item) {
                         this.player.inventory.removeItem(item.id);
                         this.logAction({
                             state: 'success',
-                            volatile: true,
+                            volatile: false,
                             ref: `drop:${this.player.location}:${item.id}`,
                             message: `I dropped the ${item.noun}`,
                         });
@@ -376,7 +376,14 @@ class ChessboardGameState {
                         this.currentLocation().items.push(item);
                         return true;
                     }
-                });
+                })) {
+                    this.logAction({
+                        state: 'failure',
+                        volatile: true,
+                        ref: `drop:${this.player.location}:no-exist`,
+                        message: 'I don\'t understand what you want me to drop',
+                    })
+                }
                 break;
             default:
         }
