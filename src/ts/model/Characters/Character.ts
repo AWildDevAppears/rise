@@ -11,6 +11,7 @@ export default class Character extends Entity {
     name: string = '';
     description: string = '';
     inventory: Inventory = new Inventory(28);
+    keywords: string[] = [];
 
     stats: IStatistics = {
         awareness: 0,

@@ -175,9 +175,11 @@ class ChessboardGameState {
                     return character.name;
                 });
 
-                this.keywords.concat(this.currentLocation().items.map(item => {
-                    return item.noun;
-                }));
+                this.keywords.concat(
+                    this.currentLocation().items.map(item => {
+                        return item.noun;
+                    }),
+                );
                 return true;
             }
         });
@@ -369,28 +371,30 @@ class ChessboardGameState {
                 }
                 break;
             case 'drop':
-                if (!actionArray.some(word => {
-                    const item = this.player.inventory.getItemMatchingNoun(word);
+                if (
+                    !actionArray.some(word => {
+                        const item = this.player.inventory.getItemMatchingNoun(word);
 
-                    if (item) {
-                        this.player.inventory.removeItem(item.id);
-                        this.logAction({
-                            state: 'success',
-                            volatile: false,
-                            ref: `drop:${this.player.location}:${item.id}`,
-                            message: `I dropped the ${item.noun}`,
-                        });
+                        if (item) {
+                            this.player.inventory.removeItem(item.id);
+                            this.logAction({
+                                state: 'success',
+                                volatile: false,
+                                ref: `drop:${this.player.location}:${item.id}`,
+                                message: `I dropped the ${item.noun}`,
+                            });
 
-                        this.currentLocation().items.push(item);
-                        return true;
-                    }
-                })) {
+                            this.currentLocation().items.push(item);
+                            return true;
+                        }
+                    })
+                ) {
                     this.logAction({
                         state: 'failure',
                         volatile: true,
                         ref: `drop:${this.player.location}:no-exist`,
-                        message: 'I don\'t understand what you want me to drop',
-                    })
+                        message: "I don't understand what you want me to drop",
+                    });
                 }
                 break;
             default:

@@ -12,8 +12,11 @@ const placey = new Humanoid();
 
 placey.name = 'Placey';
 placey.id = 'id-placey';
-placey.description =
-    "The creature has black oily skin and looks slippery to the touch. two lifeless pale eyes sit in it's sockets";
+placey.description = `
+        The creature has black oily skin and looks slippery to the touch. two lifeless pale eyes sit in it's sockets.
+        It watches you with a puzzled expression.
+    `;
+placey.keywords = ['puzzled'];
 
 fork.noun = 'fork';
 spoon.noun = 'spoon';
@@ -371,7 +374,18 @@ describe('Game state - chessboard movement', () => {
         expect(game.keywords.length).toBeGreaterThan(0);
     });
 
-    it('should allow a user to look at a location', () => {
+    xit('should allow characters to have keywords', () => {
+        // e.g. A character is describes as having a worried expression. A player should be able to "ask character about worried"
+        // to which they will unlock some dialog in which the character elaborates on why they are worried.
+        expect(placey.keywords.length).toBeGreaterThan(0);
+
+        game.player.location = 'north';
+        game.loadScene();
+
+        expect(game.keywords).toContain(placey.keywords[0]);
+    });
+
+    xit('should allow a user to look at a location', () => {
         game.player.location = 'middle';
         game.log = [];
 
@@ -415,10 +429,10 @@ describe('Game state - chessboard movement', () => {
         expect(game.currentLocation().items[0].id).toBe('id-key');
     });
 
-    it('should not let me drop something I don\'t have', () => {
+    it("should not let me drop something I don't have", () => {
         game.sendAction('drop something');
 
-        expect(game.lastResponse).toBe('I don\'t understand what you want me to drop')
+        expect(game.lastResponse).toBe("I don't understand what you want me to drop");
     });
 
     xit('should let me use an item', () => {
