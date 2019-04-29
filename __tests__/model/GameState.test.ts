@@ -364,6 +364,13 @@ describe('Game state - chessboard movement', () => {
         expect(game.lastResponse).toBe("I don't know who you are trying to talk to");
     });
 
+    it('should allow the app to highlight keywords in scenes', () => {
+        game.player.location = 'north';
+        game.loadScene();
+
+        expect(game.keywords.length).toBeGreaterThan(0);
+    });
+
     it('should allow a user to look at a location', () => {
         game.player.location = 'middle';
         game.log = [];

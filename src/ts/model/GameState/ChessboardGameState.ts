@@ -97,6 +97,7 @@ const ViableCommands = {
 class ChessboardGameState {
     player: ChessboardHumanoid;
     scene: IScene;
+    keywords: string[];
     map: IMap;
 
     lastResponse: string;
@@ -170,6 +171,13 @@ class ChessboardGameState {
 
             if (canUseScene) {
                 this.scene = scene;
+                this.keywords = this.currentLocation().characters.map(character => {
+                    return character.name;
+                });
+
+                this.keywords.concat(this.currentLocation().items.map(item => {
+                    return item.noun;
+                }));
                 return true;
             }
         });
