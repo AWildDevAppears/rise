@@ -396,7 +396,7 @@ describe('Game state - chessboard movement', () => {
         // TODO:
     });
 
-    it('should allow a user to look at an object', () => {
+    it('should allow a user to look at an item', () => {
         game.player.location = 'west';
 
         // Endure we still have the correct items in the scene.
@@ -481,6 +481,10 @@ describe('Game state - chessboard movement', () => {
 
     xit('should check existing actions when running a new action to remove any that are unneeded', () => {
         // If I pick up a spoon, then put it back down again, it should be like I never took the spoon in the first place.
+    });
+
+    xit('should allow a scene to contain objects', () => {
+        // e.g. containers, workbenches, levers, lights, buttons etc,
     });
 
     xit('should let me interact with a container', () => {

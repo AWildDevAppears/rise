@@ -1,7 +1,16 @@
-describe('Container tests', () => {
-    xit('should let a container contain items', () => {});
+import Container from '../../src/ts/model/Objects/Container';
 
-    xit('should allow items to be removed from a container', () => {});
+describe('Container tests', () => {
+    it('should let me create a container', () => {
+        const container = new Container();
+        expect(container).not.toBe(undefined);
+    });
+
+    it('should let a container contain items', () => {
+        const container = new Container();
+        expect(container).toHaveProperty('inventory');
+        expect(container.inventory.count()).toBe(0);
+    });
 
     xit('should let items be added to a container', () => {});
 
