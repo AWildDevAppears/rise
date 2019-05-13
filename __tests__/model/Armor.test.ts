@@ -12,6 +12,7 @@ describe('Armor tests', () => {
 
         expect(character.equipment.chest.id).toBe(armor.id);
     });
+
     it('should negate some damage to a character wearing armor', () => {
         const character = new Humanoid();
         const armor = new Armor();
@@ -26,6 +27,7 @@ describe('Armor tests', () => {
 
         expect(character.stats.health).toBe(91);
     });
+
     it('should never equate to zero damage', () => {
         const character = new Humanoid();
         const armor = new Armor();
@@ -40,6 +42,7 @@ describe('Armor tests', () => {
 
         expect(character.stats.health).toBe(99);
     });
+
     it('should not negate damage when the player is wearing broken armor', () => {
         const character = new Humanoid();
         const armor = new Armor();

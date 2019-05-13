@@ -1,7 +1,11 @@
 describe('Container tests', () => {
-    it('should let a container contain items', () => {});
-    it('should allow items to be removed from a container', () => {});
-    it('should let items be added to a container', () => {});
-    it('should allow a container to refresh its inventory', () => {});
-    it('should not let a container with a fixed inventory to refresh its contents', () => {});
+    xit('should let a container contain items', () => {});
+
+    xit('should allow items to be removed from a container', () => {});
+
+    xit('should let items be added to a container', () => {});
+
+    xit('should allow a container to refresh its inventory', () => {});
+
+    xit('should not let a container with a fixed inventory to refresh its contents', () => {});
 });

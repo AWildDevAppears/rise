@@ -203,8 +203,8 @@ describe('Characters wearing armor', () => {
     });
 });
 
-describe('Character trying to damage indestructable enitities', () => {
-    it('should negate damage if youv are attacking an indestuctable entity', () => {
+describe('Character trying to damage an indestructible entity', () => {
+    it('should negate damage if you are attacking an indestructible entity', () => {
         const sandbag = new Entity();
         const character = new Humanoid();
         const rifle = new RangedWeapon();

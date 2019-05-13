@@ -16,6 +16,7 @@ describe('Modifier tests', () => {
         expect(character.effectsApplied.length).toBe(1);
         expect(character.calculatedStats.charisma).toBe(10);
     });
+
     it('Should apply modifiers from potions to a character', () => {
         const character = new Humanoid();
         const item = new Item();
@@ -27,7 +28,9 @@ describe('Modifier tests', () => {
 
         expect(character.effectsApplied[0].id).toBe('buff');
     });
-    it('Should apply modifiers from weapons to a character', () => {});
+
+    xit('Should apply modifiers from weapons to a character', () => {});
+
     it('Should allow modifiers to override other modifiers', () => {
         // If I am on fire, and then I get the wet modifier, I should lose the burning modifier
         const character = new Humanoid();
@@ -46,6 +49,7 @@ describe('Modifier tests', () => {
         expect(character.effectsApplied.length).toBe(1);
         expect(character.effectsApplied[0].id).toBe('wet-mod');
     });
+
     it('Should allow me to get several modifiers', () => {
         const character = new Humanoid();
         const modOne = new Modifier('one');
@@ -58,6 +62,7 @@ describe('Modifier tests', () => {
 
         expect(character.effectsApplied.length).toBe(3);
     });
+
     it('Should take modifiers into account when calculating stats', () => {
         const character = new Humanoid();
         const mod = new Modifier('mod');
@@ -69,6 +74,7 @@ describe('Modifier tests', () => {
         character.addModifier(mod);
         expect(character.calculatedStats.awareness).toBe(10);
     });
+
     it('Should not allow a character to have two modifiers of of the same type', () => {
         // I can't be on fire twice at the same time.
         const character = new Humanoid();
@@ -79,7 +85,9 @@ describe('Modifier tests', () => {
 
         expect(character.effectsApplied.length).toBe(1);
     });
-    it('Should remove a modifier from a piece of armor from a character when they unequip it', () => {});
+
+    xit('Should remove a modifier from a piece of armor from a character when they unequip it', () => {});
+
     it('should increase the damage of electrocution when a character is wet', () => {
         // buff modifiers based on other modifiers on the target
         const character = new Humanoid();
@@ -102,6 +110,7 @@ describe('Modifier tests', () => {
 
         expect(character.calculatedStats.moveSpeed).toBe(7);
     });
+
     it('should take into account a characters resistances when applying modifiers', () => {
         // A mob that is physically fire cannot be set on fire
         const character = new Humanoid();
@@ -113,7 +122,8 @@ describe('Modifier tests', () => {
 
         expect(character.effectsApplied.length).toBe(0);
     });
-    it('should increase the strength of modifiers that play to a characters weakness', () => {
+
+    xit('should increase the strength of modifiers that play to a characters weakness', () => {
         // You may be fire proof because you are literally fire, but I bet you don't like water.
     });
 });

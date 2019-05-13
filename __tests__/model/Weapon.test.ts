@@ -1,8 +1,8 @@
 import { Magasine, WeaponSights, WeaponGrip } from '../../src/ts/model/Weapons/WeaponSlots';
 import RangedWeapon from '../../src/ts/model/Weapons/RangedWeapon';
 
-describe('Wepon tests', () => {
-    it('should not let me remove fixed items from weapons (e.g a bows magasine)', () => {
+describe('Weapon tests', () => {
+    it('should not let me remove fixed items from weapons (e.g. a bows magazine)', () => {
         const rifle = new RangedWeapon();
         const rifleMag = new Magasine();
 

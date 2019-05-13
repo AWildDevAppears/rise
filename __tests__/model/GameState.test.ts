@@ -196,6 +196,7 @@ describe('Game state - chessboard movement', () => {
 
         expect(game.player.location).toBe('north');
     });
+
     it('should let me move south when I can go south', () => {
         game.player.location = 'middle';
 
@@ -203,6 +204,7 @@ describe('Game state - chessboard movement', () => {
 
         expect(game.player.location).toBe('south');
     });
+
     it('should let me move east when I can go east', () => {
         game.player.location = 'middle';
 
@@ -210,6 +212,7 @@ describe('Game state - chessboard movement', () => {
 
         expect(game.player.location).toBe('east');
     });
+
     it('should let me move west when I can go west', () => {
         game.player.location = 'middle';
 

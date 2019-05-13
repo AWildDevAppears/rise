@@ -52,6 +52,7 @@ describe('Crafting', () => {
         // All of the items should have been consumed and only the item to remain
         expect(character.inventory.count()).toBe(1);
     });
+
     it('should not remove any of the items if I cannot craft the item', () => {
         const recipe = new Recipe();
         const result = new Item();
@@ -83,6 +84,7 @@ describe('Crafting', () => {
         // Nothing is removed from my inventory, I can't craft this item
         expect(character.inventory.count()).toBe(2);
     });
+
     it('should let a character learn a recipe', () => {
         const character = new Humanoid();
         const recipe = new Recipe();
