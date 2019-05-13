@@ -1,4 +1,5 @@
 import Modifier from '../Modifier';
+import Item from '../abstract/Item';
 
 const ENDURANCE_MODIFIER = 0.2;
 
@@ -15,13 +16,14 @@ export interface IStatistics {
     moveSpeed: number;
 }
 
+// N.Y.I
 export interface IObject {
     hasCollidedWith: (entity: Entity) => void;
     hasBeenAttackedBy: (entity: Entity) => void;
     hasBeenInteractedWithBy: (entity: Entity) => void;
 }
 
-export default class Entity implements IObject {
+export default class Entity {
     x: number = 0;
     y: number = 0;
     z: number = 0;
@@ -50,11 +52,7 @@ export default class Entity implements IObject {
         this.stats.health -= Math.floor(damage - defence);
     }
 
-    interact() {}
+    use() {}
 
-    hasCollidedWith() {}
-
-    hasBeenAttackedBy() {}
-
-    hasBeenInteractedWithBy() {}
+    useWith(item: Item) {}
 }
